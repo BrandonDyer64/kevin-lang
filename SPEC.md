@@ -86,7 +86,7 @@ Instead, we should put everything on the stack.
 
 ```
 fn Child() {
-  let a = $(24);
+  let a = $[24];
 }
 
 fn Parent() {
