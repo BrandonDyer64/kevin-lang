@@ -35,13 +35,20 @@ box <Name> ['extends' [<Type> [',']]+] {
 
 #### Example
 
+A box is a structure that can only contain values and factories.
+
 ```
 box A {
+  // Values
   float x;
   float y;
+
+  // Factory
   (float a, float b) {
-    x = a;
-    y = b;
+    return {
+      x: a,
+      y: b
+    };
   }
 };
 ```
@@ -94,19 +101,6 @@ fn Parent() {
 }
 ```
 
-#### Translates to this
-
-```
-fn Child(int* a) {
-  *a = 24;
-}
-
-fn Parent() {
-  let int* a;
-  Child(a);
-}
-```
-
 ### Passing farther
 
 ```
@@ -120,23 +114,6 @@ fn Child() {
 
 fn Parent() {
   Child();
-}
-```
-
-#### Translates to This
-
-```
-fn Grandchild(int* a) {
-  *a = 24;
-}
-
-fn Child(int* a) {
-  Grandchild(a);
-}
-
-fn Parent() {
-  let int* a;
-  Child(a);
 }
 ```
 
@@ -169,5 +146,119 @@ fn Main() {
   // Wait until both are finished then continue
   Console::Print(a);
   Console::Print(b);
+}
+```
+
+## Compile-time
+
+### Function overloads
+
+```
+#[debug=true]
+fn Log(String out) {
+  Console::Print(out);
+}
+
+#[default]
+fn Log(String out) {
+  FS::WriteFile("log.txt", out);
+}
+```
+
+## Nullable
+
+A nullable is a pointer that might equal null.
+
+### Filtering
+
+```
+fn Main() {
+  let int? my_ptr = GetPointer();
+  let my_value = filter(my_ptr) return;
+}
+```
+
+### if
+
+```
+fn Main() {
+  let int? my_ptr = GetPointer();
+  if let my_value = filter(my_ptr) {
+    // pointer is valid
+  } else {
+    // pointer is null
+  }
+}
+```
+
+## Pointer types
+
+```
+int  -> raw data
+int* -> safe pointer
+int? -> safe, but possibly null, pointer
+int! -> unsafe pointer
+```
+
+## Unsafe
+
+### Unsafe pointers
+
+```
+fn Main() {
+  let int! my_unsafe_ptr = GetUnsafePointer();
+
+  // We don't know where my_unsafe_ptr is pointing, or if it's valid, but we'll
+  // assume it's valid.
+
+  unsafe let my_value = *my_unsafe_ptr;
+}
+```
+
+### Pointer arithmetic
+
+```
+fn Main() {
+  let int* my_safe_ptr = GetSafePointer();
+  let int! my_unsafe_ptr = my_safe_ptr + 1;
+
+  unsafe let my_value = *my_unsafe_ptr;
+}
+```
+
+### Pointer casting
+
+```
+fn Main() {
+  let int my_int = 24;
+  let int* my_int_pointer = &my_int;
+  let float! my_unsafe_ptr = cast[float; my_int_pointer];
+  unsafe {
+    let float my_value = *my_unsafe_ptr;
+  }
+}
+```
+
+## Frames
+
+Frames are a sort of window into a part of the memory.
+These can be used like an array, but are not safe.
+
+```
+// This is the memory pattern of a frame
+box <T> Frame {
+  T* start;
+  int length;
+}
+```
+
+```
+fn Main() {
+  // Create a frame of size 12
+  let my_frame = [int; 12];
+
+  let int! my_unsafe_ptr = my_frame[14];
+  let int? my_safe_ptr = my_frame[11]!;
+  let int my_value = filter(my_frame[11]!) return;
 }
 ```
