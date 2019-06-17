@@ -171,38 +171,3 @@ fn Main() {
   Console::Print(b);
 }
 ```
-
-## Wiggles
-
-Wiggley data gives bad guys looking at your memory a run for their money.
-
-```
-fn Main() {
-  // Create a wiggley float with a value of 24
-  let my_wiggle = Wiggley<float>(24);
-
-  // Jiggle the wiggle
-  Jiggle <| my_wiggle;
-}
-```
-
-### Break down
-
-```
-fn Main() {
-
-  // Memory: [ 00 00 00 00 ]
-
-  let my_wiggle = Wiggley<float>(24);
-
-  // Memory: [ 21 04 00 00 ]
-
-  Jiggle <| my_wiggle;
-
-  // Memory: [ 13 11 00 00 ]
-
-  let my_other_wiggle = Wiggley<float>(6);
-
-  // Memory: [ 13 11 02 04 ]
-
-}
