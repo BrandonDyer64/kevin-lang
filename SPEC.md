@@ -105,14 +105,17 @@ fn Parent() {
 
 ```
 fn Grandchild() {
+  // Pass 24 to the parent
   let a = $[24];
 }
 
 fn Child() {
+  // Pass the heap signature to the parent
   $Grandchild();
 }
 
 fn Parent() {
+  // Declare the heap for a (24) here
   Child();
 }
 ```
@@ -233,9 +236,7 @@ fn Main() {
   let int my_int = 24;
   let int* my_int_pointer = &my_int;
   let float! my_unsafe_ptr = cast[float; my_int_pointer];
-  unsafe {
-    let float my_value = *my_unsafe_ptr;
-  }
+  unsafe let float my_value = *my_unsafe_ptr;
 }
 ```
 
