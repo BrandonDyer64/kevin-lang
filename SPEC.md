@@ -2,6 +2,8 @@
 
 A lightweight transpiled language interoperable with C/C++.
 
+## Functions
+
 ### Function Definition
 
 ```
@@ -20,6 +22,26 @@ fn String Trim(String str) {
 fn NoReturnType() {
   // This has no params or return
 }
+```
+
+### Overloading
+
+There is no such thing as function overloading in Kevin.
+A function should always do one thing and should always mean one thing.
+
+If you need to write the same function with different code, it's doing something different, so it should have a different name.
+
+As an alternative to overload chains, we use default parameter values and named arguments.
+
+```
+fn MyFun(int a = 6, int b = 3) {
+  // ...
+}
+
+MyFun(12, 13);
+MyFun(b=13, a=12);
+MyFun(b=13);
+12.MyFun(8);
 ```
 
 ### Boxes
@@ -86,14 +108,14 @@ fn Main() {
 Nothing should ever go on the super heap (the heap provided by the OS).
 Instead, we should put everything on the stack.
 
-#### Example
-
 ```
 fn Child() {
+  // 24 goes in the parent stack-frame
   let a = $[24];
 }
 
 fn Parent() {
+  // Parent makes room for 24
   Child();
 }
 ```
@@ -131,6 +153,28 @@ fn Parent() {
 | -> | | . |
 | ->> | | -> |
 
+## Expression logic
+
+### If expression
+
+```
+let my_value = if (some_bool) {
+  17;
+} else {
+  18;
+}
+```
+
+### Switch expression
+
+```
+let my_value = switch (some_int) {
+  6: "bad";
+  7, 8, 9: "good";
+  _: "¯\_(ツ)_/¯";
+}
+```
+
 ## Built-in threading
 
 ### Array mapping
@@ -139,28 +183,25 @@ fn Parent() {
 // Iterates over an array and maps its values.
 // Because each value is independent of every other value
 // we can run each iteration in its own thread.
-fn Main() {
-  let my_array = [ "Hello", "Goodbye", "Saluton al" ];
-  let my_new_array = my_array.Map([](String val, int i) {
-    return val + " World!";
-  })
-  // [ "Hello World!", "Goodbye World!", "Saluton al World!" ]
-}
+
+let my_array = [ "Hello", "Goodbye", "Saluton al" ];
+let my_new_array = my_array.Map([](String val, int i) {
+  return val + " World!";
+})
+// [ "Hello World!", "Goodbye World!", "Saluton al World!" ]
 ```
 
 ### Async statements
 
 ```
-fn Main() {
-  // These two statements don't rely on each other.
-  // We can run each in their own thread.
-  async let a = SomethingExpensive();
-  async let b = SomethingElseExpensive();
+// These two statements don't rely on each other.
+// We can run each in their own thread.
+async let a = SomethingExpensive();
+async let b = SomethingElseExpensive();
 
-  // Wait until both are finished then continue
-  Console::Print(a);
-  Console::Print(b);
-}
+// Wait until both are finished then continue
+Console::Print(a);
+Console::Print(b);
 ```
 
 ## Compile-time
@@ -208,19 +249,19 @@ A nullable is a pointer that might equal null.
 fn Main() {
   let int? my_ptr = GetPointer();
   let my_value = filter(my_ptr) return;
+  // or
+  let my_value = filter(my_ptr) 17;
 }
 ```
 
 ### if
 
 ```
-fn Main() {
-  let int? my_ptr = GetPointer();
-  if let my_value = filter(my_ptr) {
-    // pointer is valid
-  } else {
-    // pointer is null
-  }
+let int? my_ptr = GetPointer();
+if let my_value = filter(my_ptr) {
+  // pointer is valid
+} else {
+  // pointer is null
 }
 ```
 
