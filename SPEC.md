@@ -149,17 +149,36 @@ fn Main() {
 
 ## Compile-time
 
-### Function overloads
+### If statements
 
 ```
-#[debug=true]
 fn Log(String out) {
-  Console::Print(out);
+  #if (debug) {
+    Console::Print(out);
+  } else {
+    FS::WriteFile("log.txt", out);
+  }
 }
+```
 
-#[default]
-fn Log(String out) {
-  FS::WriteFile("log.txt", out);
+### Switches
+
+```
+fn String WhatPlatform() {
+  #switch (platform) {
+    "Linux" {
+      return "Linux";
+    }
+    "MacOS" {
+      return "MacOS";
+    }
+    "Windows" {
+      return "Windows";
+    }
+    _ {
+      return "¯\_(ツ)_/¯";
+    }
+  }
 }
 ```
 
