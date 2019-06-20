@@ -1,10 +1,5 @@
 # Kevin Specification
 
-Kevin is my programming language.
-Kevin is a low-level systems language.
-Kevin is a memory safe alternative to C++ that isn't Rust.
-Kevin's a girl.
-
 ### Function Definition
 
 ```
