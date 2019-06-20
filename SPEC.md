@@ -44,6 +44,16 @@ MyFun(b=13);
 12.MyFun(8);
 ```
 
+For handling different types of inputs, we have alt parameters. These can be defined at any time.
+
+```
+fn Sum(float x, float y, float z) {
+  return x + y + z;
+}
+fn Sum(Vec3 vec): (vec.x, vec.y, vec.z)
+fn Sum(Vec2 vec): (vec.x, vec.y, 0)
+```
+
 ### Boxes
 
 ```
