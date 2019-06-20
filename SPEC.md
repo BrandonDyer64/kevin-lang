@@ -1,5 +1,7 @@
 # Kevin Specification
 
+A lightweight transpiled language interoperable with C/C++.
+
 ### Function Definition
 
 ```
@@ -115,6 +117,20 @@ fn Parent() {
 }
 ```
 
+## Operators
+
+| Op | Does | C++ equivalent |
+| --- | --- | --- |
+| + | .Add | + |
+| - | .Sub | - |
+| * | .Mult | * |
+| / | .Div | / |
+| % | .Mod | % |
+| . | `a.b` = `a.b` | . / -> |
+| . | `a.b()` = `b(a)` | |
+| -> | | . |
+| ->> | | -> |
+
 ## Built-in threading
 
 ### Array mapping
@@ -125,7 +141,7 @@ fn Parent() {
 // we can run each iteration in its own thread.
 fn Main() {
   let my_array = [ "Hello", "Goodbye", "Saluton al" ];
-  let my_new_array = my_array |> Map([](String val, int i) {
+  let my_new_array = my_array.Map([](String val, int i) {
     return val + " World!";
   })
   // [ "Hello World!", "Goodbye World!", "Saluton al World!" ]
@@ -275,5 +291,47 @@ fn Main() {
   let int! my_unsafe_ptr = my_frame[14];
   let int? my_safe_ptr = my_frame[11]!;
   let int my_value = filter(my_frame[11]!) return;
+}
+```
+
+## Objects
+
+Objects are high-level dynamic types that inteface directly with JavaScript.
+
+```
+fn Main() {
+  let my_object = obj{
+    float a: 12.6;
+    int b: 6;
+    String c: "Hi!";
+  };
+  let b = filter(my_object.b[int]) return;
+  Console::Print(b);
+}
+```
+
+Type must be known when recieved. Two values can have the same name if they have different types.
+
+```
+fn Main() {
+  let my_object = obj{
+    float value: 16.8;
+    int value: 8;
+  };
+  my_object.value^String = "Hello, World!";
+  let value = filter(my_object.value^String) return;
+  Console::Print(value);
+}
+```
+
+### JavaScript
+
+```
+#[JS_FUNCTION(require("a_module").someFunction)]
+fn SomeJsFunction(Object)
+
+fn Main() {
+  let my_object = GetObject();
+  SomeJsFunction(my_object);
 }
 ```
