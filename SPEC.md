@@ -95,10 +95,8 @@ fn float Sum(A self) {
 ```
 
 ```
-fn Main() {
-  let a = new A(2, 3);
-  let a_sum = a |> Sum;
-}
+let a = new A(2, 3);
+let a_sum = a.Sum();
 ```
 
 ## Memory safety
@@ -246,12 +244,10 @@ A nullable is a pointer that might equal null.
 ### Filtering
 
 ```
-fn Main() {
-  let int? my_ptr = GetPointer();
-  let my_value = filter(my_ptr) return;
-  // or
-  let my_value = filter(my_ptr) 17;
-}
+let int? my_ptr = GetPointer();
+let my_value = filter(my_ptr) return;
+// or
+let my_value = filter(my_ptr) 17;
 ```
 
 ### if
@@ -279,36 +275,30 @@ int! -> unsafe pointer
 ### Unsafe pointers
 
 ```
-fn Main() {
-  let int! my_unsafe_ptr = GetUnsafePointer();
+let int! my_unsafe_ptr = GetUnsafePointer();
 
-  // We don't know where my_unsafe_ptr is pointing, or if it's valid, but we'll
-  // assume it's valid.
+// We don't know where my_unsafe_ptr is pointing, or if it's valid, but we'll
+// assume it's valid.
 
-  unsafe let my_value = *my_unsafe_ptr;
-}
+unsafe let my_value = *my_unsafe_ptr;
 ```
 
 ### Pointer arithmetic
 
 ```
-fn Main() {
-  let int* my_safe_ptr = GetSafePointer();
-  let int! my_unsafe_ptr = my_safe_ptr + 1;
+let int* my_safe_ptr = GetSafePointer();
+let int! my_unsafe_ptr = my_safe_ptr + 1;
 
-  unsafe let my_value = *my_unsafe_ptr;
-}
+unsafe let my_value = *my_unsafe_ptr;
 ```
 
 ### Pointer casting
 
 ```
-fn Main() {
-  let int my_int = 24;
-  let int* my_int_pointer = &my_int;
-  let float! my_unsafe_ptr = cast[float; my_int_pointer];
-  unsafe let float my_value = *my_unsafe_ptr;
-}
+let int my_int = 24;
+let int* my_int_pointer = &my_int;
+let float! my_unsafe_ptr = cast[float; my_int_pointer];
+unsafe let float my_value = *my_unsafe_ptr;
 ```
 
 ## Frames
@@ -325,14 +315,12 @@ box <T> Frame {
 ```
 
 ```
-fn Main() {
-  // Create a frame of size 12
-  let my_frame = [int; 12];
+// Create a frame of size 12
+let my_frame = [int; 12];
 
-  let int! my_unsafe_ptr = my_frame[14];
-  let int? my_safe_ptr = my_frame[11]!;
-  let int my_value = filter(my_frame[11]!) return;
-}
+let int! my_unsafe_ptr = my_frame[14];
+let int? my_safe_ptr = my_frame[11]!;
+let int my_value = filter(my_frame[11]!) return;
 ```
 
 ## Objects
@@ -340,29 +328,25 @@ fn Main() {
 Objects are high-level dynamic types that inteface directly with JavaScript.
 
 ```
-fn Main() {
-  let my_object = obj{
-    float a: 12.6;
-    int b: 6;
-    String c: "Hi!";
-  };
-  let b = filter(my_object.b[int]) return;
-  Console::Print(b);
-}
+let my_object = obj{
+  float a: 12.6;
+  int b: 6;
+  String c: "Hi!";
+};
+let b = filter(my_object.b^int) return;
+Console::Print(b);
 ```
 
 Type must be known when recieved. Two values can have the same name if they have different types.
 
 ```
-fn Main() {
-  let my_object = obj{
-    float value: 16.8;
-    int value: 8;
-  };
-  my_object.value^String = "Hello, World!";
-  let value = filter(my_object.value^String) return;
-  Console::Print(value);
-}
+let my_object = obj{
+  float value: 16.8;
+  int value: 8;
+};
+my_object.value^String = "Hello, World!";
+let value = filter(my_object.value^String) return;
+Console::Print(value);
 ```
 
 ### JavaScript
