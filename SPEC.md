@@ -24,12 +24,7 @@ fn NoReturnType() {
 }
 ```
 
-### Overloading
-
-There is no such thing as function overloading in Kevin.
-A function should always do one thing and should always mean one thing.
-
-If you need to write the same function with different code, it's doing something different, so it should have a different name.
+### Parameters and arguments
 
 As an alternative to overload chains, we use default parameter values and named arguments.
 
@@ -360,6 +355,8 @@ Console::Print(value);
 ```
 
 ### JavaScript
+
+Requires JavaScript mode to be enabled in your `package.json`.
 
 ```
 #[JS_FUNCTION(require("a_module").someFunction)]
