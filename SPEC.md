@@ -339,11 +339,11 @@ Objects are high-level dynamic types that inteface directly with JavaScript.
 
 ```
 let my_object = obj{
-  float a: 12.6;
-  int b: 6;
-  String c: "Hi!";
+  a#float: 12.6;
+  b#int: 6;
+  c#String: "Hi!";
 };
-let b = filter(my_object.b^int) return;
+let b = filter(my_object.b#int) return;
 Console::Print(b);
 ```
 
@@ -351,11 +351,11 @@ Type must be known when recieved. Two values can have the same name if they have
 
 ```
 let my_object = obj{
-  float value: 16.8;
-  int value: 8;
+  value#float: 16.8;
+  value#int: 8;
 };
-my_object.value^String = "Hello, World!";
-let value = filter(my_object.value^String) return;
+my_object.value#String = "Hello, World!";
+let value = filter(my_object.value#String) return;
 Console::Print(value);
 ```
 
