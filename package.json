@@ -1,0 +1,29 @@
+{
+  "name": "kevin",
+  "version": "0.0.2",
+  "description": "Kevin Language",
+  "main": "src/index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrandonDyer64/kevin-lang.git"
+  },
+  "keywords": [
+    "kevin",
+    "language",
+    "kevin-lang",
+    "C++",
+    "cpp"
+  ],
+  "author": "Brandon Dyer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BrandonDyer64/kevin-lang/issues"
+  },
+  "homepage": "https://github.com/BrandonDyer64/kevin-lang#readme"
+}
