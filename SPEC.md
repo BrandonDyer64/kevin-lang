@@ -367,3 +367,42 @@ fn Main() {
   SomeJsFunction(my_object);
 }
 ```
+
+# Proposals
+
+Things that may or may not come to fruition.
+
+## Function and attribute branching
+
+This is possible:
+
+```
+my_value
+  .Fun()
+  .OtherFun()
+  .AnotherFun();
+```
+
+This is also possible:
+
+```
+let my_new_value = if (a_bool) {
+  value_a;
+} else {
+  value_b;
+}
+```
+
+Proposal:
+
+```
+my_value
+  .Fun()
+  .OtherFun()
+  if (a_bool) {
+    .FunctionA();
+  } else {
+    .FunctionB();
+  }
+  .AnotherFun();
+```
