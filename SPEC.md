@@ -224,12 +224,12 @@ let int? my_safe_ptr = my_frame[11]!;
 let int my_value = filter(my_frame[11]!) return;
 ```
 
-## Anonymous structures
+## Anonymous box
 
-Sometimes it's nice to just pass data without the need of a dedicated struct.
+Sometimes it's nice to just pass data without the need of a dedicated box.
 
 ```
-fn struct GetAStruct(int a) {
+fn box GetAStruct(int a) {
   let b = 2;
   let c = 3;
   return { a, b, c };
