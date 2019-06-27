@@ -7,101 +7,27 @@ A lightweight transpiled language interoperable with C/C++.
 ### Function Definition
 
 ```
-fn [type] <Name>([arg]*) {
-  [statement]+
-}
-```
-
-#### Example
-
-```
-fn String Trim(String str) {
-  // Do string trim
-}
-
-fn NoReturnType() {
-  // This has no params or return
-}
-```
-
-### Parameters and arguments
-
-As an alternative to overload chains, we use default parameter values and named arguments.
-
-```
-fn MyFun(int a = 6, int b = 3) {
+fn Type Name(Type arg1, Type arg2) {
   // ...
 }
-
-MyFun(12, 13);
-MyFun(b=13, a=12);
-MyFun(b=13);
-12.MyFun(8);
 ```
 
-For handling different types of inputs, we have alt parameters. These can be defined at any time.
+### Function Chaining
 
 ```
-fn Sum(float x, float y, float z) {
-  return x + y + z;
-}
-fn Sum(Vec3 vec): (vec.x, vec.y, vec.z)
-fn Sum(Vec2 vec): (vec.x, vec.y, 0)
+FunC(FunB(FunA(5)));
+
+// Can be written as
+5.FunA().FunB().FunC();
 ```
 
 ### Boxes
 
 ```
-box <Name> ['extends' [<Type> [',']]+] {
-  [values]+
+box Name extends A, B, C {
+  Type val1;
+  Type val2;
 }
-```
-
-#### Example
-
-A box is a structure that can only contain values and factories.
-
-```
-box A {
-  // Values
-  float x;
-  float y;
-
-  // Factory
-  (float a, float b) {
-    return {
-      x: a,
-      y: b
-    };
-  }
-};
-```
-
-```
-box D extends A, B, C {
-  float z;
-};
-```
-
-### Box Functions
-
-```
-fn [type] <Function>(<Box> self [, <arg>]*) {
-  [statement]*
-}
-```
-
-#### Example
-
-```
-fn float Sum(A self) {
-  return self.a + self.b;
-}
-```
-
-```
-let a = new A(2, 3);
-let a_sum = a.Sum();
 ```
 
 ## Memory safety
@@ -118,7 +44,7 @@ fn Child() {
 }
 
 fn Parent() {
-  // Parent makes room for 24
+  // Parent makes room for 24 here
   Child();
 }
 ```
@@ -137,7 +63,7 @@ fn Child() {
 }
 
 fn Parent() {
-  // Declare the heap for a (24) here
+  // Parent makes room for 24 here
   Child();
 }
 ```
@@ -180,20 +106,6 @@ let my_value = switch (some_int) {
 
 ## Built-in threading
 
-### Array mapping
-
-```
-// Iterates over an array and maps its values.
-// Because each value is independent of every other value
-// we can run each iteration in its own thread.
-
-let my_array = [ "Hello", "Goodbye", "Saluton al" ];
-let my_new_array = my_array.Map([](String val, int i) {
-  return val + " World!";
-})
-// [ "Hello World!", "Goodbye World!", "Saluton al World!" ]
-```
-
 ### Async statements
 
 ```
@@ -207,55 +119,47 @@ Console::Print(a);
 Console::Print(b);
 ```
 
-## Compile-time
-
-### If statements
-
 ```
-fn Log(String out) {
-  #if (debug) {
-    Console::Print(out);
-  } else {
-    FS::WriteFile("log.txt", out);
-  }
+async {
+  let a = SomethingExpensive();
+  let b = SomethingElseExpensive();
 }
 ```
 
-### Switches
+## Pointer types
 
 ```
-fn String WhatPlatform() {
-  #switch (platform) {
-    "Linux" {
-      return "Linux";
-    }
-    "MacOS" {
-      return "MacOS";
-    }
-    "Windows" {
-      return "Windows";
-    }
-    _ {
-      return "¯\_(ツ)_/¯";
-    }
-  }
-}
+int* -> safe
+int? -> nullable
+int! -> unsafe
 ```
 
-## Nullable
+### Safe
 
-A nullable is a pointer that might equal null.
-
-### Filtering
+A safe pointer is a pointer who is guaranteed to be valid data.
 
 ```
-let int? my_ptr = GetPointer();
+let int a = 5;
+let int* a_ptr = &a;
+
+Console::Print(*a); // : 5
+```
+
+### Nullable
+
+A nullable is a pointer who might either equal null or valid data.
+
+```
+let int? my_ptr = GetNullablePointer();
+
+// Early return
 let my_value = filter(my_ptr) return;
-// or
+
+// -- OR --
+
+// Default value
 let my_value = filter(my_ptr) 17;
 ```
-
-### if
 
 ```
 let int? my_ptr = GetPointer();
@@ -266,29 +170,21 @@ if let my_value = filter(my_ptr) {
 }
 ```
 
-## Pointer types
+### Unsafe
 
-```
-int  -> raw data
-int* -> safe pointer
-int? -> safe, but possibly null, pointer
-int! -> unsafe pointer
-```
+An unsafe pointer is a pointer whos value may not be valid.
+To dereference an unsafe pointer we must use the `unsafe` keyword.
+Pointer validity is left to the discression of the writer when using `unsafe`.
 
-## Unsafe
-
-### Unsafe pointers
+#### Unsafe source
 
 ```
 let int! my_unsafe_ptr = GetUnsafePointer();
 
-// We don't know where my_unsafe_ptr is pointing, or if it's valid, but we'll
-// assume it's valid.
-
 unsafe let my_value = *my_unsafe_ptr;
 ```
 
-### Pointer arithmetic
+#### Pointer arithmetic
 
 ```
 let int* my_safe_ptr = GetSafePointer();
@@ -297,12 +193,12 @@ let int! my_unsafe_ptr = my_safe_ptr + 1;
 unsafe let my_value = *my_unsafe_ptr;
 ```
 
-### Pointer casting
+#### Pointer casting
 
 ```
 let int my_int = 24;
-let int* my_int_pointer = &my_int;
-let float! my_unsafe_ptr = cast[float; my_int_pointer];
+let int* my_int_ptr = &my_int;
+let float! my_unsafe_ptr = Cast<float>(my_int_ptr);
 unsafe let float my_value = *my_unsafe_ptr;
 ```
 
@@ -328,81 +224,18 @@ let int? my_safe_ptr = my_frame[11]!;
 let int my_value = filter(my_frame[11]!) return;
 ```
 
-## Objects
+## Anonymous structures
 
-Objects are high-level dynamic types that inteface directly with JavaScript.
-
-```
-let my_object = obj{
-  a#float: 12.6;
-  b#int: 6;
-  c#String: "Hi!";
-};
-let b = filter(my_object.b#int) return;
-Console::Print(b);
-```
-
-Type must be known when recieved. Two values can have the same name if they have different types.
+Sometimes it's nice to just pass data without the need of a dedicated struct.
 
 ```
-let my_object = obj{
-  value#float: 16.8;
-  value#int: 8;
-};
-my_object.value#String = "Hello, World!";
-let value = filter(my_object.value#String) return;
-Console::Print(value);
-```
-
-### JavaScript
-
-Requires JavaScript mode to be enabled in your `package.json`.
-
-```
-#[JS_FUNCTION(require("a_module").someFunction)]
-fn SomeJsFunction(Object)
+fn struct GetAStruct(int a) {
+  let b = 2;
+  let c = 3;
+  return { a, b, c };
+}
 
 fn Main() {
-  let my_object = GetObject();
-  SomeJsFunction(my_object);
+  let { a, b, c } = GetAStruct(1);
 }
-```
-
-# Proposals
-
-Things that may or may not come to fruition.
-
-## Function and attribute branching
-
-This is possible:
-
-```
-my_value
-  .Fun()
-  .OtherFun()
-  .AnotherFun();
-```
-
-This is also possible:
-
-```
-let my_new_value = if (a_bool) {
-  value_a;
-} else {
-  value_b;
-}
-```
-
-Proposal:
-
-```
-my_value
-  .Fun()
-  .OtherFun()
-  if (a_bool) {
-    .FunctionA();
-  } else {
-    .FunctionB();
-  }
-  .AnotherFun();
 ```
