@@ -212,12 +212,15 @@ These can be used like an array, but are not safe.
 box <T> Frame {
   T* start;
   int length;
+  
+  (int length, T fill)
+  (int length, fn(int) => T)
 }
 ```
 
 ```
 // Create a frame of size 12
-let my_frame = Frame<int>(12);
+let my_frame = Frame<int>(12, (i) => int { i });
 
 let int! my_unsafe_ptr = my_frame[14];
 let int? my_safe_ptr = my_frame[11]!;
