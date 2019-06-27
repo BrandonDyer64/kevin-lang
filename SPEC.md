@@ -21,7 +21,7 @@ FunC(FunB(FunA(5)));
 5.FunA().FunB().FunC();
 ```
 
-### Boxes
+## Boxes
 
 ```
 box Name extends A, B, C {
