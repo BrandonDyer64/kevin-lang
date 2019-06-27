@@ -217,7 +217,7 @@ box <T> Frame {
 
 ```
 // Create a frame of size 12
-let my_frame = [int; 12];
+let my_frame = Frame<int>(12);
 
 let int! my_unsafe_ptr = my_frame[14];
 let int? my_safe_ptr = my_frame[11]!;
@@ -229,13 +229,13 @@ let int my_value = filter(my_frame[11]!) return;
 Sometimes it's nice to just pass data without the need of a dedicated box.
 
 ```
-fn box GetAStruct(int a) {
+fn box GetABox(int a) {
   let b = 2;
   let c = 3;
   return { a, b, c };
 }
 
 fn Main() {
-  let { a, b, c } = GetAStruct(1);
+  let { a, b, c } = GetABox(1);
 }
 ```
