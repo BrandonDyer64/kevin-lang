@@ -31,7 +31,7 @@ FunC(FunB(FunA(5)));
 ## Boxes
 
 ```
-box Name extends A, B, C {
+box Name {
   Type val1;
   Type val2;
 }
