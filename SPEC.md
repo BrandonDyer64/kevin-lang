@@ -2,6 +2,13 @@
 
 A lightweight transpiled language interoperable with C/C++.
 
+## Variables
+
+```
+let name = expression; // Immutable variable value
+var name = expression; // Mutable variable value
+```
+
 ## Functions
 
 ### Function Definition
@@ -66,6 +73,68 @@ fn Parent() {
   // Parent makes room for 24 here
   Child();
 }
+```
+
+## Mutablility
+
+### Variable definitions
+
+```
+let a = ABox(6);
+a.b = 4;     // Illegal
+a = ABox(5); // Illegal
+
+var a = ABox(6);
+a.b = 4;     // Illegal
+a = ABox(5); // Legal
+
+let mut a = ABox(6);
+a.b = 4;     // Legal
+a = ABox(5); // Illegal
+
+var mut a = ABox(6);
+a.b = 4;     // Legal
+a = ABox(5); // Legal
+```
+
+### Function parameters
+
+```
+fn (ABox a) {
+  a.b = 4;     // Illegal
+  a = ABox(5); // Legal
+}
+
+fn (mut ABox a) {
+  a.b = 4;     // Legal
+  a = ABox(5); // Legal
+}
+```
+
+### Passing mutability
+
+```
+let a = ABox(6);
+let mut b = a; // Illegal
+
+let a = ABox(6);
+let mut b = a.&;
+
+let mut a = ABox(6);
+let b = a; // Legal
+
+let mut a = ABox(6);
+let mut b = a; // Legal
+```
+
+```
+fn Fun(mut ABox a) {}
+let a = ABox(6);
+Fun(a); // Illegal
+
+fn Fun(mut ABox a) {}
+let a = mut ABox(6);
+Fun(a); // Legal
 ```
 
 ## Operators
