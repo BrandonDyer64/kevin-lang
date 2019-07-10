@@ -1,0 +1,6 @@
+#include "import"
+
+ExportBlock
+  = "export " _ structure:ImportStructure _ ";" {
+    return structure
+  }

@@ -1,0 +1,37 @@
+#include "function"
+#include "literals"
+#include "names"
+
+Expression
+  = head:ExpressionHead _ tail:Factor? {
+    return tail ? {...tail, left:head} : head;
+  }
+
+/*
+{
+  t: "op",
+  op: "add",
+  left: "",
+  right: ""
+}
+*/
+ExpressionHead
+  = "(" _ expr:Expression _ ")" {
+    return { t: "expression", v: expr };
+  }
+  / v:Literal { return { t: "literal", ...v } }
+  / v:VariableName { return { t: "variable", v } }
+  / FunctionCall
+
+Factor
+  = op:OperatorFunction {
+    return { t: "operator", op: op.op, right: op.expr }
+  }
+
+OperatorFunction
+  = OpAdd
+
+OpAdd
+  = "+" _ expr:Expression {
+    return {op: "add", expr}
+  }

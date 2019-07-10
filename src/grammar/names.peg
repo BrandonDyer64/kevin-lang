@@ -1,0 +1,26 @@
+
+BoxName = FunctionName
+
+FunctionName "Function Name"
+  = [A-Z][a-zA-Z0-9]* {
+    return text()
+  }
+
+PrimitiveName "Primitive Name"
+  = "bool"
+  / "byte"
+  / "char"
+  / "float"
+  / "int"
+  / "void"
+  / [udf][0-9]* { return text() }
+
+TypeName "Type Name"
+  = (PrimitiveName / BoxName) ("*" / "?" / "!")? {
+    return text()
+  }
+
+VariableName
+  = [a-z][a-z0-9_]* {
+    return text()
+  }

@@ -1,0 +1,31 @@
+Literal
+  = v:IntegerLiteral { return { t:"integer", base:v.base, v:v.digits } }
+  / v:StringLiteral { return { t:"string", v } }
+  / v:CharacterLiteral { return { t:"character", v } }
+
+IntegerLiteral
+  = digits:[0-9]+ {
+    return {base: 10, digits: digits.join("")};
+  }
+  / "#" type:("b" / "o" / "x") "_" digits:[0-9]+ {
+    return {
+      base: {
+        b: 2,
+        o: 8,
+        x: 16
+      }[type],
+      digits: digits.join("")
+    }
+  }
+
+StringLiteral
+  = "\"" chars:StringCharacter* "\"" {
+    return chars.join("");
+  }
+
+StringCharacter
+  = [^\0-\x1F\x22\x5C]
+  / "\\" [a-z] { return text(); }
+
+CharacterLiteral
+  = "\'" . "\'"

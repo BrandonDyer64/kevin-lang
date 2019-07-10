@@ -1,5 +1,19 @@
 
-
 fn Main(String[] args) {
   Console::Print("Hello, World!");
 }
+
+CallbackHungry(a, b, (res) => {
+  CallbackHungry(res, (res) => {
+    CallbackHungry(res, (res) => {
+      Alert(res);
+    })
+  })
+})
+
+CallbackHungry(a, b, %)
+  |> (res) => CallbackHungry(res, %)
+  |> (res) => CallbackHungry(res, %)
+  |> (res) => Alert(res)
+
+CallbackHungry

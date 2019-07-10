@@ -1,0 +1,14 @@
+// Kevin Language
+// ==============
+
+Program
+  = _ imports:Import* _ globals:GlobalStatement* _ exportBlock:ExportBlock? _ {
+    return { imports, globals, exports: exportBlock || [] }
+  }
+
+#include "import"
+#include "global-statement"
+#include "export"
+
+_ "whitespace"
+  = [ \t\n\r]*

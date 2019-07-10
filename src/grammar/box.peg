@@ -1,0 +1,14 @@
+#include "names"
+
+Box
+  = "box " _ name:BoxName _ content:BoxContent
+
+BoxContent
+  = "{" _
+    fields:BoxFieldDeclaration*
+    creators:BoxCreator*
+    destroyers:BoxDestroyer*
+    _ "}"
+
+BoxFieldDeclaration
+  = " "

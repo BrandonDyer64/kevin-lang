@@ -1,0 +1,57 @@
+#include "expression"
+#include "function"
+#include "names"
+
+Statement
+  = factor:StatementFactor {
+    return factor
+  }
+
+StatementFactor
+  = v:AssignmentStatement _ ";" {
+    return { t: "assignment", v };
+  }
+  / v:FunctionCall _ ";" {
+    return { t: "function_call", v };
+  }
+  / v:IfStatement {
+    return { t: "if", v};
+  }
+  / v:ReturnStatement _ ";" {
+    return { t: "return", v };
+  }
+  / v:Scope {
+    return { t: "scope", v};
+  }
+
+AssignmentStatement
+  = dec:("let" / "var")? _ mut:("mut" / "watch")? _ assignment:Assignment {
+    return { dec, mut, ...assignment }
+  }
+
+Assignment
+  = name:VariableName _ "=" _ expr:Expression {
+    return { name, expr }
+  }
+  / type:TypeName _ name:VariableName _ "=" _ expr:Expression {
+    return { name, expr, type }
+  }
+
+IfStatement
+  = "if" _ expr:Expression _ stmt:Statement _ elsee:("else" _ Statement)? {
+    return { expr, stmt, "else": elsee ? elsee[2] : null }
+  }
+
+ReturnStatement
+  = "return " _ expr:Expression {
+    return { expr }
+  }
+  / Expression
+
+Scope
+  = "{" _ statements:(_ Statement _)* _ "}" {
+    return statements.map(s => s[1])
+  }
+  / "=>" _ expr:Expression _ ";"? {
+    return [{t: "return", expr}]
+  }

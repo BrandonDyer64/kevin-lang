@@ -1,0 +1,36 @@
+#include "expression"
+#include "names"
+#include "statement"
+
+Function
+  = "fn" _ type:TypeName _ name:FunctionName _ params:ParamList _ scope:Scope {
+    return {
+      name,
+      returnType: type,
+      params,
+      scope
+    }
+  }
+
+ParamList "Parameter List"
+  = "(" params:( _ Param _ ","?)* ")" {
+    return params.map(p => p[1])
+  }
+  / param:Param {
+    return [ param ];
+  }
+
+Param "Parameter"
+  = type:TypeName _ name:VariableName {
+    return { type, name };
+  }
+
+ArgList
+  = "(" _ head:Expression? _ tail:("," _ m:Expression _ { return m; })* _ ")" {
+    return head ? [ head, ...tail ] : [];
+  }
+
+FunctionCall
+  = modules:(n:FunctionName _ "::" _ {return n})* _ name:FunctionName _ args:ArgList {
+    return {modules, name, args};
+  }

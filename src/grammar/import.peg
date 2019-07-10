@@ -1,0 +1,19 @@
+#include "literals"
+#include "names"
+
+Import
+  = "import" _ structure:ImportStructure _ "from" _ frm:StringLiteral _ ";" _ {
+    return { structure, "from": frm };
+  }
+
+ImportStructure
+  = factor:ImportFactor {
+    return factor
+  }
+  / "{" _ factors:( _ ImportFactor _ )+ _ "}" {
+    return factors.map(f => f[1])
+  }
+
+ImportFactor
+  = FunctionName
+  / VariableName

@@ -7,7 +7,7 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "nodemon -e js,peg src/test.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,13 @@
   "bugs": {
     "url": "https://github.com/BrandonDyer64/kevin-lang/issues"
   },
-  "homepage": "https://github.com/BrandonDyer64/kevin-lang#readme"
+  "homepage": "https://github.com/BrandonDyer64/kevin-lang#readme",
+  "dependencies": {
+    "pegjs": "^0.10.0",
+    "pegjs-backtrace": "^0.2.0",
+    "yaml": "^1.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
 }
