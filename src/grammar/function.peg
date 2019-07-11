@@ -11,6 +11,14 @@ Function
       scope
     }
   }
+  / "fn" _ name:FunctionName _ params:ParamList _ scope:Scope {
+    return {
+      name,
+      returnType: "void",
+      params,
+      scope
+    }
+  }
 
 ParamList "Parameter List"
   = "(" params:( _ Param _ ","?)* ")" {

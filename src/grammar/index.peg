@@ -1,6 +1,20 @@
 // Kevin Language
 // ==============
 
+{
+  function buildBinaryExpression(head, tail) {
+    return tail.reduce((result, element) => ({
+      t: element[1],
+      type: result.type || element[3].type,
+      left: result,
+      right: element[3]
+    }), head);
+  }
+  function typifyScope(scope, variables) {
+    return scope;
+  }
+}
+
 Program
   = _ imports:Import* _ globals:GlobalStatement* _ exportBlock:ExportBlock? _ {
     return { imports, globals, exports: exportBlock || [] }
@@ -11,4 +25,7 @@ Program
 #include "export"
 
 _ "whitespace"
+  = [ \t\n\r]*
+
+__ "forced whitespace"
   = [ \t\n\r]*

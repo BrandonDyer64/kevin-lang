@@ -9,19 +9,19 @@ Statement
 
 StatementFactor
   = v:AssignmentStatement _ ";" {
-    return { t: "assignment", v };
+    return { type: "assignment", ...v };
   }
   / v:FunctionCall _ ";" {
-    return { t: "function_call", v };
+    return { type: "function_call", ...v };
   }
   / v:IfStatement {
-    return { t: "if", v};
+    return { type: "if", ...v};
   }
   / v:ReturnStatement _ ";" {
-    return { t: "return", v };
+    return { type: "return", ...v };
   }
   / v:Scope {
-    return { t: "scope", v};
+    return { type: "scope", ...v};
   }
 
 AssignmentStatement

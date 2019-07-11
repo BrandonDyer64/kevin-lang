@@ -1,21 +1,22 @@
 Literal
-  = v:IntegerLiteral { return { t:"integer", base:v.base, v:v.digits } }
+  = v:IntegerLiteral { return { t:"integer", v } }
   / v:StringLiteral { return { t:"string", v } }
   / v:CharacterLiteral { return { t:"character", v } }
 
 IntegerLiteral
-  = digits:[0-9]+ {
-    return {base: 10, digits: digits.join("")};
-  }
-  / "#" type:("b" / "o" / "x") "_" digits:[0-9]+ {
-    return {
-      base: {
+  = digits:[0-9]+
+    { return digits.join(""); }
+  / "#" type:("b" / "o" / "x") digits:[0-9A-F_]+ {
+    return parseInt(
+      digits
+        .filter(d => d!=='_')
+        .join(""),
+      {
         b: 2,
         o: 8,
         x: 16
-      }[type],
-      digits: digits.join("")
-    }
+      }[type]
+    );
   }
 
 StringLiteral

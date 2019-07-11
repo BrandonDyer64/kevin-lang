@@ -1,25 +1,23 @@
 const YAML = require('yaml');
 const Tracer = require('pegjs-backtrace');
+const parser = require('./parser');
+const { translate } = require('./translator');
 
 const source = `
-import Console from "console";
-
-fn int Main() {
-  43 + 2 + 3;
+fn Test(int a) {
+  let b = Function(a, b);
 }
-
-export Main;
 `;
 
-const tracer = new Tracer(source, {
-});
-
-const parser = require('./parser');
+const tracer = new Tracer(source, {});
 
 console.log('\n\n##### PARSER GENERATED SUCCESSFULLY #####\n');
 
 try {
-  console.log(YAML.stringify(parser.parse(source, {tracer})));
+  const ast = parser.parse(source, {tracer});
+  console.log(YAML.stringify(ast));
+  console.log(YAML.stringify(translate(ast)))
 } catch(e) {
   console.log(tracer.getBacktraceString());
+  console.log(e.message);
 }

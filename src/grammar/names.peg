@@ -16,7 +16,7 @@ PrimitiveName "Primitive Name"
   / [udf][0-9]* { return text() }
 
 TypeName "Type Name"
-  = (PrimitiveName / BoxName) ("*" / "?" / "!")? {
+  = (PrimitiveName / BoxName) ("*" / "?" / "!")? "[]"? {
     return text()
   }
 

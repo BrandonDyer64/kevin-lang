@@ -23,9 +23,6 @@ function getPegFile(filename, included = []) {
     .replace(/\#include "(.*?)"/g, (x, incfile) => {
       if (included.includes(incfile)) return '';
       included.push(incfile);
-      // if (!validatePegFile(getPegFile(incfile, [ filename ]), incfile)) {
-      //   process.exit();
-      // }
       return getPegFile(incfile, included);
     })
     + '\n';

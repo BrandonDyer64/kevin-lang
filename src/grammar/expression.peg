@@ -3,35 +3,60 @@
 #include "names"
 
 Expression
-  = head:ExpressionHead _ tail:Factor? {
-    return tail ? {...tail, left:head} : head;
-  }
+  = head:ExpressionHead
 
-/*
-{
-  t: "op",
-  op: "add",
-  left: "",
-  right: ""
-}
-*/
-ExpressionHead
-  = "(" _ expr:Expression _ ")" {
-    return { t: "expression", v: expr };
-  }
-  / v:Literal { return { t: "literal", ...v } }
-  / v:VariableName { return { t: "variable", v } }
+ExpressionPrimary
+  = v:VariableName filtered:"!"? { return { t: "variable", v, ...(filtered ? {filtered: true}:{}) }; }
+  / v:Literal { return {t: "literal", type: v.t, v:v.v }; }
+  / "(" _ v:Expression _ ")" { return v; }
   / FunctionCall
+  / Tuple
 
-Factor
-  = op:OperatorFunction {
-    return { t: "operator", op: op.op, right: op.expr }
+Tuple
+  = "(" _ head:Expression tail:(_ "," _ Expression)+ _ ")"
+    {
+      const props = [ head, ...tail.map(t => t[3]) ];
+      return { t: "tuple", type:"tuple[" + props.map(p => p.type).join(",") + "]", v:props };
+    }
+
+ExpressionProperty
+  = head:ExpressionPrimary tail:(_ "." _ VariableName)*
+    { return buildBinaryExpression(head, tail); }
+
+ExpressionMult
+  = head:ExpressionPrimary tail:(_ OperatorMult _ ExpressionPrimary)*
+    { return buildBinaryExpression(head, tail); }
+
+OperatorMult
+  = $("*" ![=])
+  / $("/" ![=])
+  / $("%" ![=])
+
+ExpressionAdd
+  = head:ExpressionMult tail:(_ OperatorAdd _ ExpressionMult)*
+    { return buildBinaryExpression(head, tail); }
+
+OperatorAdd
+  = $("+" ![+=])
+  / $("-" ![-=])
+
+ExpressionFunctionChain
+  = head:ExpressionAdd tail:(_ "." _ FunctionName _ "(" _ ExpressionSequence _ ")")*
+    { return tail.reduce((result, element) => ({
+        t: "function_chain",
+        name: element[3],
+        args: [result, ...element[7]]
+      }), head); }
+
+
+ExpressionEject
+  = head:ExpressionFunctionChain tail:(_ "fuckit" _ ExpressionFunctionChain)*
+    { return buildBinaryExpression(head, tail); }
+
+ExpressionSequence
+  = head:ExpressionEject? tail:(_ "," _ ExpressionEject)* {
+    return head ? [ head, ...tail.map(t => t[3]) ] : []
   }
 
-OperatorFunction
-  = OpAdd
-
-OpAdd
-  = "+" _ expr:Expression {
-    return {op: "add", expr}
-  }
+ExpressionHead
+  = ExpressionEject
