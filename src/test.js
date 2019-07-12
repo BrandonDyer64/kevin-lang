@@ -5,7 +5,7 @@ const { translate } = require("./translator");
 
 const source = `
 fn Test(int a) {
-  Function(a, b);
+  let a = $Test(1);
 }
 `;
 
@@ -16,8 +16,12 @@ console.log("\n\n##### PARSER GENERATED SUCCESSFULLY #####\n");
 try {
   const ast = parser.parse(source, { tracer });
   console.log(YAML.stringify(ast));
-  console.log(YAML.stringify(translate(ast)));
+  try {
+    console.log(YAML.stringify(translate(ast)));
+  } catch(e) {
+    throw `${e}\n  In file Test.kv`;
+  }
 } catch (e) {
   console.log(tracer.getBacktraceString());
-  console.log(e.message);
+  console.log(e);
 }

@@ -5,7 +5,7 @@
   function buildBinaryExpression(head, tail) {
     return tail.reduce((result, element) => ({
       type: element[1],
-      staticType: result.type == element[3].type ? result.type : null,
+      staticType: result.staticType == element[3].staticType ? result.staticType : null,
       left: result,
       right: element[3]
     }), head);
@@ -25,7 +25,12 @@ Program
 #include "export"
 
 _ "whitespace"
-  = [ \t\n\r]*
+  = ([ \t\n\r] / Comment)*
 
 __ "forced whitespace"
-  = [ \t\n\r]*
+  = [ \t\n\r]+
+  / Comment
+
+Comment
+  = "// " [ A-Za-z0-9_.!@#$%^&*()+-/\|[\]]* "\n"
+  / "/*" [ A-Za-z0-9_.!@#$%^&*()+-/\|[\]]* "*/"

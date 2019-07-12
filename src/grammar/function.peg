@@ -39,6 +39,6 @@ ArgList
   }
 
 FunctionCall
-  = modules:(FunctionName _ "::")* _ name:FunctionName _ args:ArgList {
-    return { modules: modules.map(m => m[0]), name, args };
+  = passHeap:"$"? modules:(FunctionName _ "::")* _ name:FunctionName _ args:ArgList {
+    return { name, modules: modules.map(m => m[0]), passHeap: !!passHeap, args };
   }

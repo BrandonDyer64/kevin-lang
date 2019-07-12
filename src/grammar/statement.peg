@@ -33,8 +33,8 @@ Assignment
   = name:VariableName _ "=" _ expr:Expression {
     return { name, expr }
   }
-  / type:TypeName _ name:VariableName _ "=" _ expr:Expression {
-    return { name, expr, type }
+  / staticType:TypeName _ name:VariableName _ "=" _ expr:Expression {
+    return { name, expr, staticType }
   }
 
 IfStatement

@@ -2,7 +2,7 @@ const indent = require("../util/indent");
 const scope = require("./scope");
 
 module.exports = (ast, state) => {
-  const params = ast.params.map(p => `${p.type} ${p.name}`).join(" ");
+  const params = ast.params.map(p => `${p.type} ${p.name}`).join(", ");
 
   const scopeAST = scope(ast.scope, {
     varTypes: ast.params.reduce((result, param) => {
@@ -13,6 +13,8 @@ module.exports = (ast, state) => {
       };
       return result;
     }, state.varTypes),
+    returnType: ast.returnType,
+    functionName: ast.name,
     ...state
   });
 

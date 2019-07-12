@@ -1,7 +1,7 @@
 Literal
-  = v:IntegerLiteral { return { t:"integer", v } }
-  / v:StringLiteral { return { t:"string", v } }
-  / v:CharacterLiteral { return { t:"character", v } }
+  = v:IntegerLiteral { return { t:"int", v } }
+  / v:StringLiteral { return { t:"String", v } }
+  / v:CharacterLiteral { return { t:"char", v } }
 
 IntegerLiteral
   = digits:[0-9]+

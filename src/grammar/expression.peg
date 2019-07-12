@@ -7,9 +7,9 @@ Expression
 
 ExpressionPrimary
   = v:VariableName filtered:"!"? { return { type: "variable", name: v, ...(filtered ? {filtered: true}:{}) }; }
-  / v:Literal { return { t: "literal", type: v.t, v:v.v }; }
+  / v:Literal { return { type: "literal", staticType: v.t, v:v.v }; }
   / "(" _ v:Expression _ ")" { return v; }
-  / FunctionCall
+  / v:FunctionCall { return { type: "function_call", ...v }; }
   / Tuple
 
 Tuple
@@ -43,7 +43,7 @@ OperatorAdd
 ExpressionFunctionChain
   = head:ExpressionAdd tail:(_ "." _ FunctionName _ "(" _ ExpressionSequence _ ")")*
     { return tail.reduce((result, element) => ({
-        t: "function_chain",
+        type: "function_chain",
         name: element[3],
         args: [result, ...element[7]]
       }), head); }
