@@ -39,6 +39,6 @@ ArgList
   }
 
 FunctionCall
-  = modules:(n:FunctionName _ "::" _ {return n})* _ name:FunctionName _ args:ArgList {
-    return {modules, name, args};
+  = modules:(FunctionName _ "::")* _ name:FunctionName _ args:ArgList {
+    return { modules: modules.map(m => m[0]), name, args };
   }

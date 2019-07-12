@@ -4,6 +4,6 @@ GlobalStatement
   = fn:Function _ {
     return {
       type: "function",
-      value: fn
+      ...fn
     }
   }

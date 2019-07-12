@@ -15,13 +15,13 @@ StatementFactor
     return { type: "function_call", ...v };
   }
   / v:IfStatement {
-    return { type: "if", ...v};
+    return { type: "if", ...v };
   }
   / v:ReturnStatement _ ";" {
     return { type: "return", ...v };
   }
   / v:Scope {
-    return { type: "scope", ...v};
+    return { type: "scope", ...v };
   }
 
 AssignmentStatement

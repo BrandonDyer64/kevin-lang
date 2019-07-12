@@ -6,8 +6,8 @@ Expression
   = head:ExpressionHead
 
 ExpressionPrimary
-  = v:VariableName filtered:"!"? { return { t: "variable", v, ...(filtered ? {filtered: true}:{}) }; }
-  / v:Literal { return {t: "literal", type: v.t, v:v.v }; }
+  = v:VariableName filtered:"!"? { return { type: "variable", name: v, ...(filtered ? {filtered: true}:{}) }; }
+  / v:Literal { return { t: "literal", type: v.t, v:v.v }; }
   / "(" _ v:Expression _ ")" { return v; }
   / FunctionCall
   / Tuple
@@ -16,7 +16,7 @@ Tuple
   = "(" _ head:Expression tail:(_ "," _ Expression)+ _ ")"
     {
       const props = [ head, ...tail.map(t => t[3]) ];
-      return { t: "tuple", type:"tuple[" + props.map(p => p.type).join(",") + "]", v:props };
+      return { type: "tuple", v:props };
     }
 
 ExpressionProperty
