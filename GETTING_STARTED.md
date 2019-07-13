@@ -83,12 +83,20 @@ Hello, World!
 <pre>
 let a = 1;
 
-// Mutable
+// Changable
 var b = 2;
 b = 3;
 
 // Typed
-let String c = "Hello, World!";
+let String str = "Hello, World!";
+
+// Mutable
+let mut vector = Vector2(1.2, 2.3);
+vector.x = 6.8;
+
+// Watch
+let watch vector_watching = vector;
+vector.y = 3.1;
 
 </pre>
 </td>
@@ -101,7 +109,15 @@ int b = 2;
 b = 3;
 
 //
-String c = String(u8"Hello, World");
+String str = String(u8"Hello, World");
+
+// Mutable
+let mut vector = Vector2(1.2, 2.3);
+vector.x = 6.8;
+
+// Watch
+let watch vector_watching = vector;
+vector.y = 3.1;
 
 </pre>
 </td>
