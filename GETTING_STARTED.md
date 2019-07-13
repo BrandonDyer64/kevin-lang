@@ -69,10 +69,11 @@ Hello, World!
 
 ### Compounds
 
-| -     | -           |
-| ----- | ----------- |
-| array | `[a, b, c]` |
-| tuple | `(a, b, c)` |
+| -     | -                     |
+| ----- | --------------------- |
+| array | `[a, b, c]`           |
+| tuple | `(a, b, c)`           |
+| box   | `{ a: a, b: b, c: c}` |
 
 ## Variables
 
@@ -119,6 +120,107 @@ vector.x = 6.8;
 let watch vector_watching = vector;
 vector.y = 3.1;
 
+</pre>
+</td>
+</tr>
+</table>
+
+## Boxes
+
+<table>
+<tr><th>Kevin</th><th>C++</th></tr>
+<tr>
+<td>
+<pre>
+box Vector {
+
+  // Fields
+  float x;
+  float y;
+
+  // Factory
+  (float x, float y) {
+    return { x, y };
+  }
+
+}
+</pre>
+</td>
+<td>
+<pre>
+struct Vector {
+
+  //
+  float x;
+  float y;
+
+  //
+  Vector(float x, float y) {
+    this->x = x;
+    this->y = y;
+  }
+}
+</pre>
+</td>
+</tr>
+</table>
+
+## Functions
+
+### Declarations
+
+<table>
+<tr><th>Kevin</th><th>C++</th></tr>
+<tr>
+<td>
+<pre>
+fn Vector Add(Vector a, Vector b) {
+  return Vector(a.x + b.x, a.y + b.y);
+}
+</pre>
+</td>
+<td>
+<pre>
+Vector Add(Vector a, Vector b) {
+  return Vector(Add(a.x, b.x), Add(a.y, b.y));
+}
+</pre>
+</td>
+</tr>
+</table>
+
+
+### Chains
+
+<table>
+<tr><th>Kevin</th><th>C++</th></tr>
+<tr>
+<td>
+<pre>
+// These functions exist:
+fn String Trim(String);
+fn String AddHello(String);
+fn String Uppercase(String);
+
+// These are the same:
+let my_str = "  Bob  ".Trim().AddHello().Uppercase();
+let my_str = Uppercase(AddHello(Trim("  Bob  ")));
+
+// : "HELLO BOB"
+</pre>
+</td>
+<td>
+<pre>
+//
+String Trim(String);
+String AddHello(String);
+String Uppercase(String);
+
+//
+String my_str = Uppercase(AddHello(Trim("  Bob  ")));
+
+//
+// : "HELLO BOB"
 </pre>
 </td>
 </tr>
