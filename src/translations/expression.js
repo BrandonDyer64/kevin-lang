@@ -1,5 +1,4 @@
-
-const literals = require('./literals');
+const literals = require("./literals");
 
 function literal(ast, state) {
   return literals[ast.staticType](ast, state);
@@ -29,11 +28,15 @@ function variable(ast, state) {
   return {
     type: state.varTypes[ast.name].type,
     compiled: ast.name
-  }
+  };
 }
 
 function function_call(ast, state) {
-
+  const args = ast.args.map(arg => expression(arg).compiled);
+  return {
+    type: "int",
+    compiled: `${ast.name}(${args.join(", ")})`
+  };
 }
 
 const types = {
@@ -43,11 +46,9 @@ const types = {
 };
 
 function expression(ast, state) {
-  if (ast.type in types)
-    return types[ast.type](ast, state);
-  else if (ast.type in operatorMap)
-    return operator(ast, state);
+  if (ast.type in types) return types[ast.type](ast, state);
+  else if (ast.type in operatorMap) return operator(ast, state);
   else throw `Unknown expression '${ast.type}'`;
-};
+}
 
 module.exports = expression;

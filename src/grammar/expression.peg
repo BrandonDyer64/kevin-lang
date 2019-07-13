@@ -41,22 +41,41 @@ OperatorAdd
   / $("-" ![-=])
 
 ExpressionFunctionChain
-  = head:ExpressionAdd tail:(_ "." _ FunctionName _ "(" _ ExpressionSequence _ ")")*
+  = head:ExpressionAdd tail:(_ "." _ FunctionCall)*
     { return tail.reduce((result, element) => ({
-        type: "function_chain",
-        name: element[3],
-        args: [result, ...element[7]]
+        type: "function_call",
+        name: element[3].name,
+        ...element[3],
+        args: [result, ...element[3].args]
       }), head); }
 
 
+ExpressionCompare
+  = head:ExpressionFunctionChain tail:(_ OperatorCompare _ ExpressionFunctionChain)*
+    { return buildBinaryExpression(head, tail); }
+
+OperatorCompare
+  = "=="
+  / "<="
+  / ">="
+  / "<"
+  / ">"
+
+ExpressionLogical
+  = head:ExpressionCompare tail:(_ OperatorLogical _ ExpressionCompare)*
+    { return buildBinaryExpression(head, tail); }
+
+OperatorLogical
+  = "&&"
+  / "||"
+
 ExpressionEject
-  = head:ExpressionFunctionChain tail:(_ "fuckit" _ ExpressionFunctionChain)*
+  = head:ExpressionLogical tail:(_ "fuckit" _ ExpressionLogical)*
     { return buildBinaryExpression(head, tail); }
 
 ExpressionSequence
-  = head:ExpressionEject? tail:(_ "," _ ExpressionEject)* {
-    return head ? [ head, ...tail.map(t => t[3]) ] : []
-  }
+  = head:ExpressionLogical? tail:(_ "," _ ExpressionLogical)*
+    { return head ? [ head, ...tail.map(t => t[3]) ] : []; }
 
 ExpressionHead
   = ExpressionEject
