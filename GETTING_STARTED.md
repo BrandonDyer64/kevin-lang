@@ -111,11 +111,11 @@ b = 3;
 //
 String str = String(u8"Hello, World");
 
-// Mutable
+//
 let mut vector = Vector2(1.2, 2.3);
 vector.x = 6.8;
 
-// Watch
+//
 let watch vector_watching = vector;
 vector.y = 3.1;
 
