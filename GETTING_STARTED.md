@@ -133,7 +133,6 @@ vector.y = 3.1;
 <td>
 <pre>
 box Vector {
-
   // Fields
   float x;
   float y;
@@ -149,7 +148,6 @@ box Vector {
 <td>
 <pre>
 struct Vector {
-
   //
   float x;
   float y;
