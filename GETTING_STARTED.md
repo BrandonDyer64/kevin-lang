@@ -24,3 +24,86 @@ int main() {
 </td>
 </tr>
 </table>
+
+```
+Hello, World!
+```
+
+## Template Strings
+
+<table>
+<tr><th>Kevin</th><th>C++</th></tr>
+<tr>
+<td>
+<pre>
+let hello = "Hello";
+let who = "World";
+let my_string = "${hello}, ${who}!";
+</pre>
+</td>
+<td>
+<pre>
+String hello = String(u8"Hello");
+String who = String(u8"Hello");
+String my_string = hello + String(u8", ") + who + String(u8"!");
+</pre>
+</td>
+</tr>
+</table>
+
+```
+Hello, World!
+```
+
+## Types
+
+### Primitives
+
+| -         | -                                  |
+| --------- | ---------------------------------- |
+| integer   | `i8` `i16` `i32` `i64` `i128` `i0` |
+| unsigned  | `u8` `u16` `u32` `u64` `u128` `u0` |
+| float     | `f32` `f64`                        |
+| character | `char`                             |
+| boolean   | `bool`                             |
+
+### Compounds
+
+| -     | -           |
+| ----- | ----------- |
+| array | `[a, b, c]` |
+| tuple | `(a, b, c)` |
+
+## Variables
+
+<table>
+<tr><th>Kevin</th><th>C++</th></tr>
+<tr>
+<td>
+<pre>
+let a = 1;
+
+// Mutable
+var b = 2;
+b = 3;
+
+// Typed
+let String c = "Hello, World!";
+
+</pre>
+</td>
+<td>
+<pre>
+int a = 1;
+
+//
+int b = 2;
+b = 3;
+
+//
+String c = String(u8"Hello, World");
+
+</pre>
+</td>
+</tr>
+</table>
