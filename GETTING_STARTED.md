@@ -6,7 +6,8 @@ C++. Think of it like the type-script of C++.
 ## Hello World
 
 <table>
-<th>Kevin</th><th>C++</th>
+<tr><th>Kevin</th><th>C++</th></tr>
+<tr>
 <td>
 <pre>
 fn Main() {
@@ -21,4 +22,5 @@ int main() {
 }
 </pre>
 </td>
+</tr>
 </table>
