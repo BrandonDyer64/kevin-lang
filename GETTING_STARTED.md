@@ -33,6 +33,8 @@ let my_string = "${hello}, ${who}!";
 | character | `char`                             |
 | boolean   | `bool`                             |
 
+`i0` and `u0` are the size of a pointer.
+
 ### Compounds
 
 | -     | -                     |
