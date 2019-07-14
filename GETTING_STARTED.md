@@ -1,7 +1,7 @@
 # Welcome to Kevin!
 
 Kevin is a strongly typed, low-level, systems language that compiles directly to
-C++. Think of it like the type-script of C++.
+C++. Like the TypeScript of C++.
 
 ## Hello World
 
@@ -44,23 +44,46 @@ let my_string = "${hello}, ${who}!";
 ## Variables
 
 ```cpp
-// Unchangable
 let a = 1;
 
-// Changable
-var b = 2;
-b = 3;
+// With a specific type
+let int a = 1;
+```
 
-// Typed
-let String str = "Hello, World!";
+### Changeability
+
+The changeability of a variable describes if a variable can be assigned a new value.
+
+```cpp
+let a = 1;
+a = 2; // <-- Compiler Error
+
+var a = 1;
+a = 2; // <-- Legal
+```
+
+### Mutability
+
+The mutability of a variable describes if the contents within a variable can change.
+
+```cpp
+// Immutable
+let vector = Vector2(1.2, 2.3);
+vector.x = 4; // <-- Compiler Error
+// The value inside of vector cannot change
 
 // Mutable
 let mut vector = Vector2(1.2, 2.3);
-vector.x = 6.8;
+vector.x = 6.8; // <-- Legal
+// The value inside of vector can change
 
 // Watch
 let watch vector_watching = vector;
-vector.y = 3.1;
+vector.y = 4.2; // <-- Legal
+vector_watching.y = 3; // <-- Compiler Error
+// The value inside of vector can change,
+// but the value can't be changed
+// by the watching variable
 ```
 
 ## Boxes
@@ -156,7 +179,7 @@ let a = {
 
 ## Pointers
 
-There are three kinds of pointer in Kevin.
+There are three kinds of pointers in Kevin.
 
 | -       | -        |
 | ------- | -------- |
@@ -192,6 +215,11 @@ fn Fun(Vector* vec_ptr) {
 A nullable pointer is a pointer that the compiler knows is either pointing to
 safe data, or to null.
 
+To get the value out of a nullable pointer we use `!`, just like a safe 
+pointer, but we need a way to handle what happens if it ends up being null.
+
+Welcome [eject](GETTING_STARTED.md#ejecting)
+
 ```rust
 fn Fun(Vector? vec_ptr) {
   let vec = vec_ptr! eject Vector(1, 2);
@@ -214,6 +242,28 @@ fn Fun(Vector! vec_ptr) {
   unsafe let vec = vec_ptr!;
 }
 ```
+
+## Ejecting
+
+Say we have a nullable that contains a nullable that contains a nullable. Doing 
+all those checks can get cumbersome. In Kevin, we have `eject`!
+
+An `eject` is a default value, panic, or return statement that's used if a 
+pointer ends up being null.
+
+```cpp
+let value = a_pointer!.value!.value!.value! eject another_value;
+
+// OR
+
+let value let value = a_pointer!.value!.value!.value! eject return null;
+
+// OR
+
+let value = a_pointer!.value!.value!.value! eject Console::Panic("Oh, no!");
+```
+
+## Catching
 
 ## Promises
 
