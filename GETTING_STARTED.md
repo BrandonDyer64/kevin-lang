@@ -335,24 +335,51 @@ fn DealDamage(Enemy enemy, Actor actor) {
 }
 ```
 
-# Dealing with Memory
+## Dealing with Memory
 
 In Kevin, the heap is bad. Using the heap when you don't need to can cause
 needless memory leaks. Instead of this, we make room for the data we want to
 create later on the stack.
 
+Like the `&` operator to get the address of data, we can use the `$` operator
+to make room on the parent stack, copy the data over, and get the address.
+
 ```
-fn String? WhatIsIt(symbol fruit) {
-  return switch fruit {
-    :apple => $"apple",
-    :orange => $"orange",
-    :watermelon => $"watermelon",
-    _ => null
+fn Example() {
+  let a = {
+    let a_string = "Oh no.";
+    &a_string;
+  }; // <-- Compiler Error: dangling pointer
+  
+  // --- These are the same: ---
+  
+  // Please, don't do this
+  unsafe var String a_string = nothing;
+  let a = {
+    a_string =  "Yay!";
+    &a_string;
+  };
+  
+  // Do this instead
+  let a = {
+    let a_string = "Yay!";
+    $a_string;
   };
 }
+```
 
-fn GetIt() {
-  let name = WhatIsIt(:apple);
+The same thing works with functions
+
+```
+fn String? Callee(bool maybe) {
+  if maybe {
+    return $"I'm not null!";
+  } else {
+    return null;
+  }
+}
+fn Caller(bool maybe) {
+  let str = Callee(maybe);
 }
 ```
 
