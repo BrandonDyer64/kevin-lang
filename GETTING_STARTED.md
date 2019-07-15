@@ -326,7 +326,7 @@ box Enemy {
 }
 
 fn DealDamage(Enemy enemy, Actor actor) {
-  actor.healt -= switch enemy.type {
+  actor.health -= switch enemy.type {
     :goomba => 1,
     :koopa, :shell => 2,
     :bowser => 10,
