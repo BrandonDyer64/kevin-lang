@@ -152,13 +152,13 @@ let am_i_happy = if is_happy {
 
 ```cpp
 switch favorite_number {
-  5, 8 => {
+  5, 8 {
     Console::Print("Great favorite number!");
   },
-  7, 9 => {
+  7, 9 {
     Console::Print("Worst number ever...");
   },
-  _ => {
+  default {
     Console::Print("Meh.");
   }
 }
@@ -166,7 +166,7 @@ switch favorite_number {
 let what_do_you_think = switch favorite_number {
   5, 8 => "Great!",
   7, 9 => "Bad...",
-  _ => "Meh."
+  default => "Meh."
 };
 ```
 
@@ -276,7 +276,7 @@ fn int? Example(symbol state) {
   MaybePanic();
   eject return null;
 
-  return $[0];
+  return $23;
 }
 ```
 
@@ -286,14 +286,14 @@ fn int? Example(symbol state) {
 fn Promise<Vector> FetchVector(String name) {
   let url = "https://api.myapi.com/get/vector/${name}";
   return Fetch(url, { method: "GET" })
-    .Then(res => {
+    .Then(res {
       return Vector(res.x.ParseFloat(), res.y.ParseFloat());
     });
 }
 
 fn UpdateEnemy(mut Actor enemy) {
   FetchVector(enemy.name)
-    .Then(vec => {
+    .Then(vec {
       enemy.position = vec;
     });
 }
