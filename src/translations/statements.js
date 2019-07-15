@@ -23,7 +23,7 @@ function assignment(ast, state) {
     throw `${ast.name} is ${ast.staticType}, not ${expr.type}`;
 
   let newVars = {};
-  let type = "int";
+  let type = ast.staticType || expr.type;
 
   if (ast.dec) {
     newVars = {

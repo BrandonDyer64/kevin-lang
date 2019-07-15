@@ -215,7 +215,7 @@ fn Fun(Vector* vec_ptr) {
 A nullable pointer is a pointer that the compiler knows is either pointing to
 safe data, or to null.
 
-To get the value out of a nullable pointer we use `!`, just like a safe 
+To get the value out of a nullable pointer we use `!`, just like a safe
 pointer, but we need a way to handle what happens if it ends up being null.
 
 Welcome [eject](GETTING_STARTED.md#ejecting)
@@ -245,10 +245,10 @@ fn Fun(Vector! vec_ptr) {
 
 ## Ejecting
 
-Say we have a nullable that contains a nullable that contains a nullable. Doing 
+Say we have a nullable that contains a nullable that contains a nullable. Doing
 all those checks can get cumbersome. In Kevin, we have `eject`!
 
-An `eject` is a default value, panic, or return statement that's used if a 
+An `eject` is a default value, panic, or return statement that's used if a
 pointer ends up being null.
 
 ```cpp
@@ -263,7 +263,20 @@ let value let value = a_pointer!.value!.value!.value! eject return null;
 let value = a_pointer!.value!.value!.value! eject Console::Panic("Oh, no!");
 ```
 
-## Catching
+### Catching
+
+Catch ejections occur at the next `eject` statement. This is a replacement for
+the try/catch paradigm.
+
+```rust
+fn int? Example(symbol state) {
+  // Something might go wrong.
+  MaybePanic();
+  eject return null;
+
+  return $[0];
+}
+```
 
 ## Promises
 
@@ -317,5 +330,26 @@ fn DealDamage(Enemy enemy, Actor actor) {
     :bowser => 10,
     _ => 0
   };
+}
+```
+
+# Dealing with Memory
+
+In Kevin, the heap is bad. Using the heap when you don't need to can cause
+needless memory leaks. Instead of this, we make room for the data we want to
+create later on the stack.
+
+```
+fn String? WhatIsIt(symbol fruit) {
+  return switch fruit {
+    :apple => $"apple",
+    :orange => $"orange",
+    :watermelon => $"watermelon",
+    _ => null
+  };
+}
+
+fn GetIt() {
+  let name = WhatIsIt(:apple);
 }
 ```

@@ -2,6 +2,7 @@ Literal
   = v:IntegerLiteral { return { t:"int", v } }
   / v:StringLiteral { return { t:"String", v } }
   / v:CharacterLiteral { return { t:"char", v } }
+  / v:SymbolLiteral { return { t: "symbol", v } }
 
 IntegerLiteral
   = digits:[0-9]+
@@ -30,3 +31,6 @@ StringCharacter
 
 CharacterLiteral
   = "\'" . "\'"
+
+SymbolLiteral
+  = ":" name:[a-z_]+ { return name.join(""); }

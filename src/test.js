@@ -4,11 +4,11 @@ const parser = require("./parser");
 const { translate } = require("./translator");
 
 const source = `
-fn int Factorial(int n) {
-   if n == 0 || n == 1
-      return 1;
-   else
-      return n * Factorial(n - 1);
+fn Test(int n) {
+  let a = :apple;
+  let b = :apple;
+  let c = :orange;
+  let d = :watermelon;
 }
 `;
 
@@ -20,7 +20,7 @@ try {
   const ast = parser.parse(source, { tracer });
   console.log(YAML.stringify(ast));
   try {
-    console.log(YAML.stringify(translate(ast)));
+    console.log(translate(ast).newAst.compiled);
   } catch (e) {
     throw `${e}\n  In file Test.kv`;
   }

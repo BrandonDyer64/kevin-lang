@@ -12,6 +12,7 @@ PrimitiveName "Primitive Name"
   / "char"
   / "float"
   / "int"
+  / "symbol"
   / "void"
   / [udf][0-9]* { return text() }
 

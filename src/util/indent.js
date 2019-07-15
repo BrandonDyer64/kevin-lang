@@ -1,1 +1,1 @@
-module.exports = s => "  " + s.replace("\n", "\n  ");
+module.exports = s => "  " + s.replace(/\n/g, "\n  ");
