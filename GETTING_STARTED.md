@@ -355,3 +355,23 @@ fn GetIt() {
   let name = WhatIsIt(:apple);
 }
 ```
+
+## Semantics
+
+### Expressions
+
+Scopes with a return statement can be shortened to `=> expression`
+
+```
+fn Vector Add(Vector a, Vector b) {
+  return Vector(a.x + b.x, a.y + b.y);
+}
+
+fn Vector Add(Vector a, Vector b) => Vector(a.x + b.x, a.y + b.y);
+
+let lambda = (int a, int b) {
+  return a + b;
+};
+
+let lambda = (int a, int b) => a + b;
+```
