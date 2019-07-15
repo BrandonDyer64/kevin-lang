@@ -341,7 +341,9 @@ In Kevin, the heap is bad. Using the heap when you don't need to can cause
 needless memory leaks. Instead of this, we make room for the data we want to
 create later on the stack.
 
-Like the `&` operator to get the address of data, we can use the `$` operator
+### Heapstack operator
+
+Like the `&` operator to get the address of data, we can use the Heapstack (`$`) operator
 to make room on the parent stack, copy the data over, and get the address.
 
 ```
@@ -382,6 +384,101 @@ fn Caller(bool maybe) {
   let str = Callee(maybe);
 }
 ```
+
+### When you need the heap
+
+If you _need_ to use the heap, such as for elastic types, we have the `heap`
+and `heap!` directives.
+
+#### Sticky pointers
+
+Let's say you need to use the heap to hold some elastic data, but you want
+the memory to be cleaned up when you're done. We can use the `heap`
+operator!
+
+As an example, we'll put an integer on the heap.
+
+```cpp
+let ptr = heap 17;
+```
+
+The number 17 is now on the heap! Let's try do return a pointer to it.
+
+```cpp
+let ptr = {
+  // [create sticky for 17]
+  let ptr = heap 17;
+  // 17 is now on the heap
+  // ptr is pointing to it
+  
+  // return the pointer
+  ptr;
+  
+  // [delete sticky]
+}; // <-- Compiler Error: dangling pointer
+```
+
+You get all the same memory guarantees as if you were on the stack. Just that
+now you can expand the data you're pointing to by whatever means.
+
+Of course, we can still use the heapstack operator here.
+
+```cpp
+let ptr = {
+  let ptr = $heap 17;
+  ptr;
+};
+```
+
+##### What's a sticky pointer?
+
+A sticky pointer is a hidden pointer (you can't touch it). That exists to
+destroy heap memory when the stack pops.
+
+This is what's going on under the hood in the previous code snippet.
+
+```cpp
+{
+  let sticky_1 = Sticky<i32>();
+  let ptr = {
+    let ptr = heap! 17;
+    ptr;
+  };
+  
+  // ...
+  
+  // Free the memory in the sticky
+  sticky_1.Destroy();
+}
+```
+
+##### Example use case
+
+```cpp
+box LinkedList<T> {
+  LinkedListHead<T>* head;
+  
+  () {
+    unsafe let head = $heap LinkedListHead<T>();
+    return { head };
+  }
+}
+```
+
+#### No sticky pointers
+
+Now let's say you want a longer, unknown, lifetime for your heap memory.
+No sticky pointers.
+
+```cpp
+let ptr = {
+  unsafe let ptr = heap! 17;
+  ptr;
+};
+unsafe delete ptr;
+```
+
+Specific use case currently unknown. Feature may be removed at any time.
 
 ## Semantics
 
