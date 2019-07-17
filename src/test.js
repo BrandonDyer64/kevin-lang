@@ -7,9 +7,12 @@ const { translate } = require("./translator");
 
 const source = `
 fn int Main() {
-  let a = int x => 4;
-  a(7);
-  return 0;
+  let a = :apple;
+  if a == :orange {
+    Console::Print("a is an orange");
+  } else {
+    Console::Print("a is not an orange");
+  }
 }
 `;
 

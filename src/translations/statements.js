@@ -50,14 +50,15 @@ function function_call(ast, state) {
   };
 }
 
-function ifSt(ast, state, scope) {
-  console.log(scope);
+function ifSt(ast, state, utils) {
+  const expr = expression(ast.expr, state);
+  const exprOut = expr.surrounded ? expr.compiled : `(${expr.compiled})`;
   return {
     newVars: {},
-    compiled: `if (${expression(ast.expr, state).compiled})
+    compiled: `if ${exprOut}
 {
-${indent(scope(ast.stmt.lines, state).compiled)}
-} ${ast["else"] && '\nelse\n{\n' + indent(scope(ast["else"].lines, state).compiled) + '\n}'}`
+${indent(utils.scope(ast.stmt.lines, state).compiled)}
+} ${ast["else"] && '\nelse\n{\n' + indent(utils.scope(ast["else"].lines, state).compiled) + '\n}'}`
   };
 }
 

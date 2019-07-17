@@ -30,7 +30,7 @@ function symbol(ast, state) {
   hash.update(ast.v);
 
   return {
-    type: "symbol",
+    type: "int32_t",
     compiled:
       "0x" +
       hash

@@ -24,11 +24,9 @@ PrimitiveName "Primitive Name"
     { return `${type}${digits}_t`; }
 
 TypeName "Type Name"
-  = name:(PrimitiveName / BoxName) ptr:("*" / "?" / "!")? array:"[]"? {
-    return (array ? 'Frame<' : '') + name + (ptr || '') + (array ? '>' : '');
-  }
+  = name:(PrimitiveName / BoxName) ptr:("*" / "?" / "!")? array:"[]"?
+    { return (array ? 'Frame<' : '') + name + (ptr || '') + (array ? '>' : ''); }
 
 VariableName
-  = [a-z][a-z0-9_]* {
-    return text()
-  }
+  = [a-z][a-z0-9_]*
+    { return text(); }

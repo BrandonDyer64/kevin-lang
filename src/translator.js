@@ -19,6 +19,7 @@ using std::int32_t;
 using std::cout;
 using std::endl;
 using std::string;
+typedef int32_t symbol;
 
 namespace Console {
   using std::cout;

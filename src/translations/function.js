@@ -20,7 +20,7 @@ module.exports = (ast, state) => {
 
   return {
     compiled: `
-${ast.returnType} ${ast.name == 'Main' ? 'main': ast.name}(${params}) {
+${ast.returnType} ${ast.name == 'Main' ? 'main': ast.name}(${params})\n{
 ${indent(scopeAST.compiled)}
 }
 `

@@ -33,20 +33,23 @@ const operatorMap = {
   "-": "Sub",
   "*": "Mult",
   "/": "Div",
-  "%": "Mod"
+  "%": "Mod",
+  "==": "Equals"
 };
 
 function operator(ast, state, utils) {
   const left = expression(ast.left, state, utils);
   const right = expression(ast.right, state, utils);
-  if (left.type == right.type && ['int'].includes(left.type)) {
+  if (left.type == right.type && ['int32_t'].includes(left.type)) {
     return {
       type: left.type,
+      surrounded: true,
       compiled: `(${left.compiled} ${ast.type} ${right.compiled})`
     };
   } else {
     return {
       type: left.type,
+      surrounded: false,
       compiled: `${operatorMap[ast.type]}(${left.compiled}, ${right.compiled})`
     };
   }
