@@ -1,9 +1,10 @@
 const expression = require("./expression");
+const indent = require("../util/indent");
 
-function assignment(ast, state) {
+function assignment(ast, state, utils) {
   let expr;
   try {
-    expr = expression(ast.expr, state);
+    expr = expression(ast.expr, state, utils);
   } catch (e) {
     throw `${e}\n  Assigning ${ast.name}`;
   }
@@ -42,6 +43,24 @@ function assignment(ast, state) {
   };
 }
 
+function function_call(ast, state) {
+  return {
+    newVars: {},
+    compiled: `${[...ast.modules, ast.name].join("::")}(${ast.args.map(a => expression(a, state).compiled).join(', ')});`
+  };
+}
+
+function ifSt(ast, state, scope) {
+  console.log(scope);
+  return {
+    newVars: {},
+    compiled: `if (${expression(ast.expr, state).compiled})
+{
+${indent(scope(ast.stmt.lines, state).compiled)}
+} ${ast["else"] && '\nelse\n{\n' + indent(scope(ast["else"].lines, state).compiled) + '\n}'}`
+  };
+}
+
 function returnSt(ast, state) {
   let expr;
   try {
@@ -49,7 +68,7 @@ function returnSt(ast, state) {
   } catch (e) {
     throw `${e}\n  Returning ${ast.expr.type} ${ast.expr.name || ""}`;
   }
-  if (expr.type !== state.returnType) {
+  if (state.returnType && expr.type !== state.returnType) {
     throw `${state.functionName} returns ${state.returnType}, not ${expr.type}`;
   }
   return {
@@ -60,5 +79,7 @@ function returnSt(ast, state) {
 
 module.exports = {
   assignment,
+  function_call,
+  if: ifSt,
   return: returnSt
 };

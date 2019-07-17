@@ -39,6 +39,12 @@ ArgList
   }
 
 FunctionCall
-  = passHeap:"$"? modules:(FunctionName _ "::")* _ name:FunctionName _ args:ArgList {
+  = passHeap:"$"? modules:(FunctionName _ "::")* _ name:(FunctionName / VariableName) _ args:ArgList {
     return { name, modules: modules.map(m => m[0]), passHeap: !!passHeap, args };
   }
+
+Lambda
+  = params:ParamList _ ":" _ returnType:TypeName _ scope:Scope
+    { return { params, returnType, scope }; }
+  / params:ParamList _ scope:Scope
+    { return { params, scope, returnType: null }; }

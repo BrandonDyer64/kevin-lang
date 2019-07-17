@@ -1,16 +1,27 @@
 const crypto = require("crypto");
 
 function int(ast, state) {
+  let type = "int32_t";
+  let value = ast.v;
+  const match = ast.v.match(/([0-9]+)([iudf])([0-9]+)/);
+  if (match) {
+    value = match[1];
+    type = {
+      i: "int",
+      f: "float",
+      u: "uint"
+    }[match[2]] + match[3] + "_t";
+  }
   return {
-    type: ast.staticType,
-    compiled: `${ast.v}`
+    type,
+    compiled: value
   };
 }
 
-function String(ast, state) {
+function string(ast, state) {
   return {
-    type: ast.staticType,
-    compiled: `String(u8"${ast.v}")`
+    type: "string",
+    compiled: `u8"${ast.v}"`
   };
 }
 
@@ -31,6 +42,6 @@ function symbol(ast, state) {
 
 module.exports = {
   int,
-  String,
+  string,
   symbol
 };

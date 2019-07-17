@@ -6,10 +6,11 @@ Expression
   = head:ExpressionHead
 
 ExpressionPrimary
-  = v:VariableName filtered:"!"? { return { type: "variable", name: v, ...(filtered ? {filtered: true}:{}) }; }
-  / v:Literal { return { type: "literal", staticType: v.t, v:v.v }; }
+  = v:FunctionCall { return { type: "function_call", ...v }; }
+  / v:Lambda { return { type: "lambda", ...v}; }
+  / v:VariableName filtered:"!"? { return { type: "variable", name: v, ...(filtered ? {filtered: true}:{}) }; }
+  / v:Literal { return { type: "literal", staticType: v.t, ...v }; }
   / "(" _ v:Expression _ ")" { return v; }
-  / v:FunctionCall { return { type: "function_call", ...v }; }
   / Tuple
 
 Tuple
@@ -24,7 +25,7 @@ ExpressionProperty
     { return buildBinaryExpression(head, tail); }
 
 ExpressionMult
-  = head:ExpressionPrimary tail:(_ OperatorMult _ ExpressionPrimary)*
+  = head:ExpressionProperty tail:(_ OperatorMult _ ExpressionProperty)*
     { return buildBinaryExpression(head, tail); }
 
 OperatorMult
@@ -70,7 +71,7 @@ OperatorLogical
   / "||"
 
 ExpressionEject
-  = head:ExpressionLogical tail:(_ "fuckit" _ ExpressionLogical)*
+  = head:ExpressionLogical tail:(_ "eject" _ ExpressionLogical)*
     { return buildBinaryExpression(head, tail); }
 
 ExpressionSequence

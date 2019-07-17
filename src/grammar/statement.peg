@@ -21,7 +21,7 @@ StatementFactor
     return { type: "return", ...v };
   }
   / v:Scope {
-    return { type: "scope", ...v };
+    return { type: "scope", lines: v };
   }
 
 AssignmentStatement
@@ -52,6 +52,6 @@ Scope
   = "{" _ statements:(_ Statement _)* _ "}" {
     return statements.map(s => s[1])
   }
-  / "=>" _ expr:Expression _ ";"? {
-    return [{t: "return", expr}]
+  / "=>" _ expr:Expression {
+    return [{type: "return", expr}]
   }

@@ -1,12 +1,12 @@
 Literal
   = v:IntegerLiteral { return { t:"int", v } }
-  / v:StringLiteral { return { t:"String", v } }
+  / v:StringLiteral { return { t:"string", v } }
   / v:CharacterLiteral { return { t:"char", v } }
   / v:SymbolLiteral { return { t: "symbol", v } }
 
 IntegerLiteral
-  = digits:[0-9]+
-    { return digits.join(""); }
+  = digits:[0-9]+ convert:([uidf][0-9]+ {return text()})?
+    { return digits.join("") + (convert || ''); }
   / "#" type:("b" / "o" / "x") digits:[0-9A-F_]+ {
     return parseInt(
       digits

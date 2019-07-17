@@ -1,11 +1,11 @@
 const indent = require("../util/indent");
 const stmts = require("./statements");
 
-module.exports = (ast, state) => {
+const scope = (ast, state, utils) => {
   let innerVars = {};
   const statements = ast.map(stmt => {
     try {
-      const out = statement(stmt, {...state, varTypes: {...state.varTypes, ...innerVars}});
+      const out = statement(stmt, {...state, varTypes: {...state.varTypes, ...innerVars}}, utils);
       if (out.newVars) {
         innerVars = {...innerVars, ...out.newVars};
       }
@@ -18,6 +18,8 @@ module.exports = (ast, state) => {
   return { compiled: statements.join("\n") };
 };
 
-function statement(ast, state) {
-  return stmts[ast.type](ast, state);
+function statement(ast, state, utils) {
+  return stmts[ast.type](ast, state, {...utils, scope});
 }
+
+module.exports = scope;

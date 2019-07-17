@@ -11,14 +11,21 @@ PrimitiveName "Primitive Name"
   / "byte"
   / "char"
   / "float"
-  / "int"
+  / "int" { return "int32_t"; }
+  / "string"
   / "symbol"
   / "void"
-  / [udf][0-9]* { return text() }
+  / type:(
+        "u" { return "uint"; }
+      / "i" { return "int"; }
+      / "f" { return "float"; }
+    )
+    digits:([0-9]+ { return text(); })
+    { return `${type}${digits}_t`; }
 
 TypeName "Type Name"
-  = (PrimitiveName / BoxName) ("*" / "?" / "!")? "[]"? {
-    return text()
+  = name:(PrimitiveName / BoxName) ptr:("*" / "?" / "!")? array:"[]"? {
+    return (array ? 'Frame<' : '') + name + (ptr || '') + (array ? '>' : '');
   }
 
 VariableName

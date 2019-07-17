@@ -14,13 +14,13 @@ module.exports = (ast, state) => {
       return result;
     }, state.varTypes),
     returnType: ast.returnType,
-    functionName: ast.name,
+    functionName: ast.name == 'Main' ? 'main' : ast.name,
     ...state
-  });
+  }, {});
 
   return {
     compiled: `
-${ast.returnType} ${ast.name}(${params}) {
+${ast.returnType} ${ast.name == 'Main' ? 'main': ast.name}(${params}) {
 ${indent(scopeAST.compiled)}
 }
 `
