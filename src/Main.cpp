@@ -5,16 +5,15 @@
 
 string source = R"u8(
 
-fn i32 Main() {
-
-}
+fn i32 Main() =>
 
 )u8";
 
 i32 main() {
-  int offset = 0;
+  u32 offset = 0;
+  string out;
   Eat(source, "[ \n\r]*", offset);
-  auto out = Function(source, offset).value();
+  Function(source, offset, out);
   std::cout << out << std::endl;
   std::cout << u8"Hello, World!" << std::endl;
   return 0;

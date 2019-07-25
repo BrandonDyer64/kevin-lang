@@ -5,12 +5,10 @@
 #include "./KSL.h"
 #include <iostream>
 
-bool Eat(string source, string regex, int &offset) {
-  string a;
-  return Eat(source, regex, offset, a);
-}
+#define Filter(x) if(!(x)) return false
+#define Resolve(x) offset = newoffset; result = x; return true
 
-bool Eat(string source, string regex, int &offset, string &result) {
+bool Eat(string source, string regex, u32 &offset, string &result) {
   std::regex base_regex(regex);
   std::smatch base_match;
   string newsource = source.substr(offset);
@@ -20,6 +18,11 @@ bool Eat(string source, string regex, int &offset, string &result) {
   offset += base_match[0].length();
   result = base_match[0];
   return true;
+}
+
+bool Eat(string source, string regex, u32 &offset) {
+  string a;
+  return Eat(source, regex, offset, a);
 }
 
 #endif
