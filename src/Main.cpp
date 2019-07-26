@@ -1,19 +1,20 @@
 #include <iostream>
-#include "./KSL.h"
-#include "./Eat.h"
-#include "./Function.h"
+#include "Kevin/Parsers.h"
 
 string source = R"u8(
 
-fn i32 Main() =>
+fn i32 Main() {
+  let Invalid = 7;
+}
 
 )u8";
 
-i32 main() {
-  u32 offset = 0;
+i32 main()
+{
+  State state;
   string out;
-  Eat(source, "[ \n\r]*", offset);
-  Function(source, offset, out);
+  Eat(source, "[ \n\r]*", state);
+  EatFunction(source, state, out);
   std::cout << out << std::endl;
   std::cout << u8"Hello, World!" << std::endl;
   return 0;
