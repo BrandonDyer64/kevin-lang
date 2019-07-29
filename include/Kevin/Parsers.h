@@ -20,4 +20,6 @@ bool EatExpressionScope(string, State&, string&);
 
 bool EatStatementAssignment(string, State&, string&);
 
+string &Indent(string &);
+
 #endif

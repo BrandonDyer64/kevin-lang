@@ -27,5 +27,5 @@ bool EatScope(string source, State &state, string &result)
     EatBracketScope(source, new_state, content) ||
     EatExpressionScope(source, new_state, content)
   );
-  Resolve("{\n" + content + "\n}\n");
+  Resolve("{\n" + Indent(content) + "\n}\n");
 }

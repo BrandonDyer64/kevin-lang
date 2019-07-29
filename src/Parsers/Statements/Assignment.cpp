@@ -1,6 +1,7 @@
 #include "Kevin/Parsers.h"
 
-bool EatStatementAssignment(string source, State &state, string &result) {
+bool EatStatementAssignment(string source, State &state, string &result)
+{
   State new_state(state);
   string letvar;
   string type;
@@ -16,7 +17,7 @@ bool EatStatementAssignment(string source, State &state, string &result) {
       Error(source, new_state, name.length(), "Variables don't have capital letters.");
       return false;
     }
-    Filter(Eat(source, "[a-zA-Z0-9_]+", new_state, name));
+    Filter(Eat(source, "[^\\S]+", new_state, name));
     Error(source, new_state, name.length(), "Invalid Variable Name");
     return false;
   };

@@ -22,5 +22,5 @@ bool Eat(string source, string regex, State &state)
 
 bool EatWhite(string source, State &state)
 {
-  Eat(source, "[ \n]+", state);
+  return Eat(source, "[ \n]+", state);
 }
