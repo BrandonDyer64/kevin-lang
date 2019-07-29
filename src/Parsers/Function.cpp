@@ -3,11 +3,15 @@
 bool EatFunctionName(string source, State &state, string &result)
 {
   State new_state(state);
-  string head;
-  string tail;
-  Filter(Eat(source, "[A-Z]", new_state, head));
-  Filter(Eat(source, "[a-zA-Z0-9]+", new_state, tail));
-  Resolve(head + tail);
+  string name;
+  if (!Eat(source, "[A-Z][a-zA-Z0-9]+", new_state, name)) {
+    if (Eat(source, "[a-z][a-zA-Z0-9]+", new_state, name)) {
+      Error(source, new_state, name.length(), "Function names start with capital letters.");
+      return false;
+    }
+    return false;
+  }
+  Resolve(name);
 }
 
 bool EatFunction(string source, State &state, string &result)
@@ -24,5 +28,5 @@ bool EatFunction(string source, State &state, string &result)
   Filter(EatFunctionName(source, new_state, name));
   Filter(Eat(source, "\\(\\) ", new_state));
   Filter(EatScope(source, new_state, scope));
-  Resolve(type + " " + name + "() " + scope);
+  Resolve("define " + type + " @" + name + "() " + scope);
 }

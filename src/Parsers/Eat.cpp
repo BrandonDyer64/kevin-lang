@@ -19,3 +19,8 @@ bool Eat(string source, string regex, State &state)
   string a;
   return Eat(source, regex, state, a);
 }
+
+bool EatWhite(string source, State &state)
+{
+  Eat(source, "[ \n]+", state);
+}

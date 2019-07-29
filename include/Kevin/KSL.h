@@ -35,12 +35,6 @@ typedef std::int32_t symbol;
 
 using std::string;
 
-// ----- Optional -----
-
-#include <optional>
-
-using std::optional;
-
 // ----- Console -----
 
 namespace Console

@@ -19,10 +19,11 @@ void Error(string source, State &state, u8 length, string message)
       column_num = 0;
       line_num++;
       line_offset = offset + 1;
+      line = string(256, (char) 0);
     }
   }
   std::cout << "\033[1;94m";
-  for(u8 i = 0; i < 8 + column_num+length + message.length(); i++) {
+  for(u8 i = 0; i < 80; i++) {
     std::cout << u8"━";
   }
   std::cout << "\033[0m";
@@ -32,7 +33,7 @@ void Error(string source, State &state, u8 length, string message)
   Console::Print("   \033[1;94m┃ ");
   printf("% *d", 2, line_num);
   Console::Print(" ┃\033[0m " + line);
-  std::cout << "   \033[1;94m┃\033[1;94m " << string(column_num, ' ');
+  std::cout << "   \033[1;94m┃\033[1;94m " << string(column_num - length, ' ');
   if (length > 1) {
     std::cout << u8"╹";
     for (u8 i = 0; i < length - 2; i++) {

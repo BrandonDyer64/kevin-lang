@@ -9,6 +9,7 @@
 
 bool Eat(string, string, State&, string&);
 bool Eat(string, string, State&);
+bool EatWhite(string, State&);
 
 bool EatFunction(string, State&, string&);
 bool EatFunctionName(string, State&, string&);

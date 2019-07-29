@@ -5,4 +5,8 @@
 
 void Error(string source, State &, u8 length, string message);
 
+// struct Error {
+//   Error(string source, State &, u8 length, string message);
+// };
+
 #endif
