@@ -29,7 +29,7 @@ void Error(string source, State &state, u8 length, string message)
   std::cout << "\033[0m";
   std::cout << std::endl;
   Console::Print("\033[1;94mError:\033[0m line " + std::to_string(line_num));
-  Console::Print("   \033[1;94m┎\033[0m src/example/test.kv");
+  Console::Print("   \033[1;94m┎\033[0m src/example/test.kev");
   Console::Print("   \033[1;94m┃ ");
   printf("% *d", 2, line_num);
   Console::Print(" ┃\033[0m " + line);

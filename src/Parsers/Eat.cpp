@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <regex>
 #include "Kevin/Parsers.h"
 
@@ -22,5 +23,10 @@ bool Eat(string source, string regex, State &state)
 
 bool EatWhite(string source, State &state)
 {
-  return Eat(source, "[ \n]+", state);
+  string content;
+  if (Eat(source, "[ \n]+", state, content)) {
+    state.line_num += std::count(content.begin(), content.end(), '\n');
+    return true;
+  }
+  return false;
 }

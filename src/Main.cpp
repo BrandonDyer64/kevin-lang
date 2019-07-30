@@ -1,13 +1,6 @@
 #include <iostream>
+#include <fstream>
 #include "Kevin/Parsers.h"
-
-string source = R"u8(
-
-fn i32 Main() {
-  let a;
-}
-
-)u8";
 
 i32 main()
 {
@@ -30,9 +23,15 @@ i32 main()
   //   progress += 0.00001; // for demonstration only
   // }
   // std::cout << std::endl;
+  std::ifstream ifs("../test.kev");
+  string source(
+    (std::istreambuf_iterator<char>(ifs)),
+    (std::istreambuf_iterator<char>())
+  );
+  std::cout << source << std::endl;
   State state;
   string out;
-  Eat(source, "[ \n\r]*", state);
+  Eat(source, "[ \n]*", state);
   EatFunction(source, state, out);
   std::cout << out << std::endl;
   return 0;

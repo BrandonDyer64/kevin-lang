@@ -22,10 +22,12 @@ bool EatExpressionScope(string source, State &state, string &result)
 bool EatScope(string source, State &state, string &result)
 {
   State new_state(state);
+  new_state.nest_level++;
   string content;
   Filter(
     EatBracketScope(source, new_state, content) ||
     EatExpressionScope(source, new_state, content)
   );
-  Resolve("{\n" + Indent(content) + "\n}\n");
+  new_state.nest_level--;
+  Resolve(Indent(content));
 }

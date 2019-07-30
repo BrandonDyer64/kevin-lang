@@ -28,5 +28,5 @@ bool EatFunction(string source, State &state, string &result)
   Filter(EatFunctionName(source, new_state, name));
   Filter(Eat(source, "\\(\\) ", new_state));
   Filter(EatScope(source, new_state, scope));
-  Resolve("define " + type + " @" + name + "() " + scope);
+  Resolve("define " + type + " @" + name + "() {\n" + scope + "\n}");
 }

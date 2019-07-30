@@ -1,0 +1,30 @@
+import systems from "./Systems"
+import a_system from "./SomeSystem"
+import another_system from "./SomeOtherSystem"
+import components from "./Components"
+import SDL from "sdl"
+
+fn symbol Main() {
+  let title = "Hello, World!";
+  let screen_size = (1280, 1080);
+  SDL::OpenWindow(title, screen_size);
+  var component_instances = LoadLevel("level_1", components);
+
+  let systems = systems ++ [ a_system, another_system ];
+
+  loop {
+    async SDL::CommitFrame();
+    async component_instances = systems
+      map system =>
+        system.Execute(component_instances)
+      reduce ac, el =>
+        ac ++ el;
+    wait;
+
+    if !SDL::IsWindowOpen() break;
+  }
+
+  return :ok;
+}
+
+export Main
