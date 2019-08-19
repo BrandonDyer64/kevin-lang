@@ -5,17 +5,17 @@
     <meta charset="UTF-8" />
 
     <!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Multiplayer | kevin-lang</title>
+<title>Hello World | kevin-lang</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="Multiplayer" />
+<meta property="og:title" content="Hello World" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="The Kevin language" />
 <meta property="og:description" content="The Kevin language" />
-<link rel="canonical" href="http://localhost:4000/learn/multiplayer.html" />
-<meta property="og:url" content="http://localhost:4000/learn/multiplayer.html" />
+<link rel="canonical" href="http://localhost:4000/learn/hello_world.html" />
+<meta property="og:url" content="http://localhost:4000/learn/hello_world.html" />
 <meta property="og:site_name" content="kevin-lang" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/learn/multiplayer.html","headline":"Multiplayer","description":"The Kevin language","@type":"WebPage","@context":"http://schema.org"}</script>
+{"url":"http://localhost:4000/learn/hello_world.html","headline":"Hello World","description":"The Kevin language","@type":"WebPage","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,7 +26,7 @@
     />
     <link
       rel="stylesheet"
-      href="/assets/css/style.css?v=ab53ec03ff1568fceee083b15128804e12836ca4"
+      href="/assets/css/style.css?v=106fe4f670f7613a319e59ff801514c9e7de8bb6"
     />
   </head>
   <body>
@@ -71,50 +71,92 @@
          
          
          
-        
-          <a
-            href="http://localhost:4000/learn/getting_started.html"
-            class=""
-          >
-            Getting Started
-          </a>
          
-        
-          <a
-            href="http://localhost:4000/learn/hacking.html"
-            class=""
-          >
-            Hacking
-          </a>
+         
          
          
          
          
         
           <a
-            href="http://localhost:4000/learn/multiplayer.html"
+            href="http://localhost:4000/learn/hello_world.html"
             class="selected"
           >
-            Multiplayer
+            Hello World
           </a>
          
         
           <a
-            href="http://localhost:4000/learn/nopoly_meshes.html"
+            href="http://localhost:4000/learn/basic_types.html"
             class=""
           >
-            No-poly Meshes
+            Basic Types
           </a>
          
+        
+          <a
+            href="http://localhost:4000/learn/variables.html"
+            class=""
+          >
+            Variables
+          </a>
          
+        
+          <a
+            href="http://localhost:4000/learn/boxes.html"
+            class=""
+          >
+            Boxes
+          </a>
+         
+        
+          <a
+            href="http://localhost:4000/learn/functions.html"
+            class=""
+          >
+            Functions
+          </a>
          
       </div>
     </div>
     <duv class="main-container">
       <div id="content" class="main-content" role="main">
         <div>
-          <h1 id="multiplayer">Multiplayer</h1>
+          <h1 id="hello-world">Hello World</h1>
 
+<p>A simple program to get started.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import Console from "console"
+
+fn symbol Main([string] args) {
+
+    Console::Print("Hello, World!");
+
+    return :ok;
+}
+
+export Main;
+</code></pre></div></div>
+
+<p>We can create a binary by running the compiler.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kevin hello.kev
+</code></pre></div></div>
+
+<p>This makes a <code class="highlighter-rouge">hello</code> binary we can run in our terminal.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./hello
+Hello, World!
+</code></pre></div></div>
+
+        </div>
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; height: 150px;">
+          
+            <div></div>
+          
+          
+            <a href="basic_types.html">Next &rsaquo;</a>
+          
         </div>
 
         <footer class="site-footer">
@@ -144,7 +186,7 @@
 			  crossorigin="anonymous"></script>
     <script
       type="text/javascript"
-      src="/assets/js/script.js?v=ab53ec03ff1568fceee083b15128804e12836ca4"
+      src="/assets/js/script.js?v=106fe4f670f7613a319e59ff801514c9e7de8bb6"
     ></script>
   </body>
 </html>

@@ -5,17 +5,17 @@
     <meta charset="UTF-8" />
 
     <!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>FAQ | kevin-lang</title>
+<title>Variables | kevin-lang</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="FAQ" />
+<meta property="og:title" content="Variables" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="The Kevin language" />
 <meta property="og:description" content="The Kevin language" />
-<link rel="canonical" href="http://localhost:4000/faq.html" />
-<meta property="og:url" content="http://localhost:4000/faq.html" />
+<link rel="canonical" href="http://localhost:4000/learn/variables.html" />
+<meta property="og:url" content="http://localhost:4000/learn/variables.html" />
 <meta property="og:site_name" content="kevin-lang" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/faq.html","headline":"FAQ","description":"The Kevin language","@type":"WebPage","@context":"http://schema.org"}</script>
+{"url":"http://localhost:4000/learn/variables.html","headline":"Variables","description":"The Kevin language","@type":"WebPage","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -49,7 +49,7 @@
          
         <a
           href="http://localhost:4000/learn/"
-          class=""
+          class="selected"
           >learn</a
         >
          
@@ -71,14 +71,6 @@
          
          
          
-        
-          <a
-            href="http://localhost:4000/faq.html"
-            class="selected"
-          >
-            FAQ
-          </a>
-         
          
          
          
@@ -87,48 +79,110 @@
          
         
           <a
-            href="http://localhost:4000/license.html"
+            href="http://localhost:4000/learn/hello_world.html"
             class=""
           >
-            License
+            Hello World
           </a>
          
+        
+          <a
+            href="http://localhost:4000/learn/basic_types.html"
+            class=""
+          >
+            Basic Types
+          </a>
          
+        
+          <a
+            href="http://localhost:4000/learn/variables.html"
+            class="selected"
+          >
+            Variables
+          </a>
          
+        
+          <a
+            href="http://localhost:4000/learn/boxes.html"
+            class=""
+          >
+            Boxes
+          </a>
+         
+        
+          <a
+            href="http://localhost:4000/learn/functions.html"
+            class=""
+          >
+            Functions
+          </a>
          
       </div>
     </div>
     <duv class="main-container">
       <div id="content" class="main-content" role="main">
         <div>
-          <h1 id="frequently-asked-questions">Frequently Asked Questions</h1>
+          <h1 id="variables">Variables</h1>
 
-<h2 id="q-is-kepler-free">Q: Is Kepler Free?</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let a = 1;
 
-<p>A: Yes.</p>
+// With a specific type
+let i16 a = 1;
 
-<h2 id="q-is-it-open-source">Q: Is it Open Source?</h2>
+// Changeable
+var x;
 
-<p>A: Yes. MIT License. Fork us <a href="https://github.com/MagentexSoftware/Kepler">here</a>.</p>
+// Mutable
+let mut x;
 
-<h2 id="q-what-is-sphere-tracing">Q: What is Sphere Tracing?</h2>
+// Both
+var mut x;
+</code></pre></div></div>
 
-<p>A: Lots of math. It uses the distance to the nearest surface instead of
-triange rasterization. If you like math and code, have a look
-<a href="http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/">here</a>.</p>
+<h3 id="changeability">Changeability</h3>
 
-<h2 id="q-whats-a-no-poly-mesh">Q: What’s a No-poly Mesh?</h2>
+<p>The changeability of a variable describes if a variable can be assigned a new value.</p>
 
-<p>A: A mesh that doesn’t use any polygons, rather a series of primitive 3d
-objects. <a href="http://localhost:4000/tutorials/nopoly_meshes.html">Read more</a>.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let a = 1;
+a = 2; //  ×  |  a cannot be redefined
+
+var a = 1;
+a = 2; //  ✓  |  a can be redefined
+</code></pre></div></div>
+
+<h3 id="mutability">Mutability</h3>
+
+<p>The mutability of a variable describes if the contents within a variable can change.</p>
+
+<h4 id="immutable">Immutable</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let vector = Vector2(1.2, 2.3);
+vector.x = 4;          //  ×  |  The value inside of vector cannot change
+</code></pre></div></div>
+
+<h4 id="mutable">Mutable</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let mut vector = Vector2(1.2, 2.3);
+vector.x = 6.8;        //  ✓  |  The value inside of vector can change
+</code></pre></div></div>
+
+<h4 id="watch">Watch</h4>
+
+<p>Assuming <code class="highlighter-rouge">vector</code> is mutable, the value inside of vector can change, but the
+value can’t be changed by the watching variable.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let watch vector_watching = vector;
+vector.y = 4.2;        //  ✓  |  can change
+vector_watching.y = 3; //  ×  |  cannot change
+</code></pre></div></div>
 
         </div>
         <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; height: 150px;">
           
-            <div></div>
+            <a href="basic_types.html">&lsaquo; Previous</a>
           
           
-            <div></div>
+            <a href="boxes.html">Next &rsaquo;</a>
           
         </div>
 

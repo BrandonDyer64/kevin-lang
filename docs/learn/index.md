@@ -16,3 +16,5 @@ fn symbol Main([string] args) {
     return :here_we_go;
 }
 ```
+
+Get started with a <a href="/learn/hello_world.html">Hello World</a> program.

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    
+    <meta charset="UTF-8" />
+
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Basic Types | kevin-lang</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Basic Types" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Kevin language" />
+<meta property="og:description" content="The Kevin language" />
+<link rel="canonical" href="http://localhost:4000/learn/basic_types.html" />
+<meta property="og:url" content="http://localhost:4000/learn/basic_types.html" />
+<meta property="og:site_name" content="kevin-lang" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/learn/basic_types.html","headline":"Basic Types","description":"The Kevin language","@type":"WebPage","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#157878" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <link
+      rel="stylesheet"
+      href="/assets/css/style.css?v=106fe4f670f7613a319e59ff801514c9e7de8bb6"
+    />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="header">
+        <span class="title"
+          ><a href="http://localhost:4000"
+            >Kevin
+            <span class="thin">&nbsp;Docs</span></a
+          ></span
+        >
+      </div>
+      <div class="top-section">
+        <a
+          href="http://localhost:4000"
+          class=""
+        >
+          home
+        </a>
+         
+        <a
+          href="http://localhost:4000/learn/"
+          class="selected"
+          >learn</a
+        >
+         
+        <a
+          href="http://localhost:4000/examples/"
+          class=""
+          >examples</a
+        >
+        
+      </div>
+      <div class="main-section">
+        
+        
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+        
+          <a
+            href="http://localhost:4000/learn/hello_world.html"
+            class=""
+          >
+            Hello World
+          </a>
+         
+        
+          <a
+            href="http://localhost:4000/learn/basic_types.html"
+            class="selected"
+          >
+            Basic Types
+          </a>
+         
+        
+          <a
+            href="http://localhost:4000/learn/variables.html"
+            class=""
+          >
+            Variables
+          </a>
+         
+        
+          <a
+            href="http://localhost:4000/learn/boxes.html"
+            class=""
+          >
+            Boxes
+          </a>
+         
+        
+          <a
+            href="http://localhost:4000/learn/functions.html"
+            class=""
+          >
+            Functions
+          </a>
+         
+      </div>
+    </div>
+    <duv class="main-container">
+      <div id="content" class="main-content" role="main">
+        <div>
+          <h1 id="basic-types">Basic Types</h1>
+
+<h2 id="literals">Literals</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>integer</td>
+      <td><code class="highlighter-rouge">1</code> <code class="highlighter-rouge">2</code> <code class="highlighter-rouge">3</code></td>
+    </tr>
+    <tr>
+      <td>float</td>
+      <td><code class="highlighter-rouge">1.2</code> <code class="highlighter-rouge">2.3</code> <code class="highlighter-rouge">4.5</code></td>
+    </tr>
+    <tr>
+      <td>character</td>
+      <td><code class="highlighter-rouge">'a'</code> <code class="highlighter-rouge">'b'</code> <code class="highlighter-rouge">'c'</code></td>
+    </tr>
+    <tr>
+      <td>string</td>
+      <td><code class="highlighter-rouge">"abcdefg"</code></td>
+    </tr>
+    <tr>
+      <td>boolean</td>
+      <td><code class="highlighter-rouge">true</code> <code class="highlighter-rouge">false</code></td>
+    </tr>
+    <tr>
+      <td>symbol</td>
+      <td><code class="highlighter-rouge">:abc</code> <code class="highlighter-rouge">:defg</code> <code class="highlighter-rouge">:hi</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="primitives">Primitives</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>integer</td>
+      <td><code class="highlighter-rouge">i1</code> <code class="highlighter-rouge">i2</code> <code class="highlighter-rouge">i4</code> <code class="highlighter-rouge">i8</code> <code class="highlighter-rouge">i16</code> <code class="highlighter-rouge">i32</code> <code class="highlighter-rouge">i64</code> <code class="highlighter-rouge">i128</code> <code class="highlighter-rouge">i256</code> …</td>
+    </tr>
+    <tr>
+      <td>unsigned</td>
+      <td><code class="highlighter-rouge">u1</code> <code class="highlighter-rouge">u2</code> <code class="highlighter-rouge">u4</code> <code class="highlighter-rouge">u8</code> <code class="highlighter-rouge">u16</code> <code class="highlighter-rouge">u32</code> <code class="highlighter-rouge">u64</code> <code class="highlighter-rouge">u128</code> <code class="highlighter-rouge">u256</code> …</td>
+    </tr>
+    <tr>
+      <td>float</td>
+      <td><code class="highlighter-rouge">f32</code> <code class="highlighter-rouge">f64</code></td>
+    </tr>
+    <tr>
+      <td>char</td>
+      <td><code class="highlighter-rouge">char</code></td>
+    </tr>
+    <tr>
+      <td>boolean</td>
+      <td><code class="highlighter-rouge">bool</code></td>
+    </tr>
+    <tr>
+      <td>symbol</td>
+      <td><code class="highlighter-rouge">symbol</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="compounds">Compounds</h2>
+
+<h3 id="arrays">Arrays</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// All of these make the same array
+let array = [1, 2, 3];
+let array = [i32; 3] =&gt; it;
+let array = [
+    , 1
+    , 2
+    , 3
+];
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              ┌──────────── array type
+              │   ┌──────── array length
+              │   │     ┌── iterator index
+let array = [i32; 3] =&gt; it;
+</code></pre></div></div>
+
+<p>An inner array</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let mut [i32] outer = [1, 2, 3, 4, 5];
+let mut [i32] inner = outer[1; 3];
+
+// outer : 1, 2, 3, 4, 5
+// inner :    2, 3, 4
+
+outer[2] = 8;
+
+// outer : 1, 2, 8, 4, 5
+// inner :    2, 8, 4
+
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      ┌───── starting position
+      │  ┌── length of inner array
+outer[1; 3];
+</code></pre></div></div>
+
+<h3 id="multidimensional-arrays">Multidimensional Arrays</h3>
+
+<h4 id="2d">2D</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let mut [i32,] array = [i32; 4, 4] =&gt; it_x * it_y;
+
+// array:
+// 0 0 0 0
+// 0 1 2 3
+// 0 2 4 6
+// 0 3 6 9
+
+// Modify the array
+array[2, 3] = 6;
+</code></pre></div></div>
+
+<h4 id="3d">3D</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let mut [i32,,] array = [i32; 4, 4, 4] =&gt; it_x * it_y * it_z;
+
+// Modify the array
+array[2, 3, 1] = 4;
+</code></pre></div></div>
+
+<p>You can have as many dimensions as you like, but remember that each dimension
+consumes exponentially more memory.</p>
+
+<h3 id="tuples">Tuples</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fn (i32, string) GetTuple((i32, string) tuple) {
+    let (num, str) = tuple;
+    return (num + 1, str + " pizzas");
+}
+
+let tuple = (15, "Krusty Krab");
+let new_tuple = GetTuple(tuple);
+let (num, str) = new_tuple;
+Console::Print("I have ${num} ${str}");
+</code></pre></div></div>
+
+<h3 id="boxes">Boxes</h3>
+
+<p>TODO.</p>
+
+        </div>
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; height: 150px;">
+          
+            <a href="hello_world.html">&lsaquo; Previous</a>
+          
+          
+            <a href="variables.html">Next &rsaquo;</a>
+          
+        </div>
+
+        <footer class="site-footer">
+          
+          <span class="site-footer-owner"
+            ><a href="https://github.com/BrandonDyer64/kevin-lang"
+              >kevin-lang</a
+            >
+            is maintained by
+            <a href="https://github.com/BrandonDyer64">BrandonDyer64</a
+            >.</span
+          >
+          
+          <span class="site-footer-credits"
+            >This page was generated by
+            <a href="https://pages.github.com">GitHub Pages</a>.</span
+          >
+          <a class="dark-toggle" href="JavaScript:toggleDark()">
+            Toggle Night Mode
+          </a>
+        </footer>
+      </div>
+    </div>
+    <script
+			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+			  crossorigin="anonymous"></script>
+    <script
+      type="text/javascript"
+      src="/assets/js/script.js?v=106fe4f670f7613a319e59ff801514c9e7de8bb6"
+    ></script>
+  </body>
+</html>

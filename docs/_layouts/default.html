@@ -56,7 +56,7 @@
         {% endfor %}
       </div>
       <div class="main-section">
-        {% if page.dir == '/tutorials/' %}
+        {% if page.dir == '/learn/' %}
           {% assign sorted_pages = site.pages | sort: 'sort_order' %}
         {% else %}
           {% assign sorted_pages = site.pages | sort: 'title' %}
@@ -76,6 +76,18 @@
       <div id="content" class="main-content" role="main">
         <div>
           {{ content }}
+        </div>
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; height: 150px;">
+          {% if page.previous %}
+            <a href="{{ page.previous }}.html">&lsaquo; Previous</a>
+          {% else %}
+            <div></div>
+          {% endif %}
+          {% if page.next %}
+            <a href="{{ page.next }}.html">Next &rsaquo;</a>
+          {% else %}
+            <div></div>
+          {% endif %}
         </div>
 
         <footer class="site-footer">

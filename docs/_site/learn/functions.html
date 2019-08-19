@@ -5,17 +5,17 @@
     <meta charset="UTF-8" />
 
     <!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Hacking | kevin-lang</title>
+<title>Functions | kevin-lang</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="Hacking" />
+<meta property="og:title" content="Functions" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="The Kevin language" />
 <meta property="og:description" content="The Kevin language" />
-<link rel="canonical" href="http://localhost:4000/learn/hacking.html" />
-<meta property="og:url" content="http://localhost:4000/learn/hacking.html" />
+<link rel="canonical" href="http://localhost:4000/learn/functions.html" />
+<meta property="og:url" content="http://localhost:4000/learn/functions.html" />
 <meta property="og:site_name" content="kevin-lang" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/learn/hacking.html","headline":"Hacking","description":"The Kevin language","@type":"WebPage","@context":"http://schema.org"}</script>
+{"url":"http://localhost:4000/learn/functions.html","headline":"Functions","description":"The Kevin language","@type":"WebPage","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,7 +26,7 @@
     />
     <link
       rel="stylesheet"
-      href="/assets/css/style.css?v=ab53ec03ff1568fceee083b15128804e12836ca4"
+      href="/assets/css/style.css?v=106fe4f670f7613a319e59ff801514c9e7de8bb6"
     />
   </head>
   <body>
@@ -71,53 +71,85 @@
          
          
          
+         
+         
+         
+         
+         
+         
         
           <a
-            href="http://localhost:4000/learn/getting_started.html"
+            href="http://localhost:4000/learn/hello_world.html"
             class=""
           >
-            Getting Started
+            Hello World
           </a>
          
         
           <a
-            href="http://localhost:4000/learn/hacking.html"
+            href="http://localhost:4000/learn/basic_types.html"
+            class=""
+          >
+            Basic Types
+          </a>
+         
+        
+          <a
+            href="http://localhost:4000/learn/variables.html"
+            class=""
+          >
+            Variables
+          </a>
+         
+        
+          <a
+            href="http://localhost:4000/learn/boxes.html"
+            class=""
+          >
+            Boxes
+          </a>
+         
+        
+          <a
+            href="http://localhost:4000/learn/functions.html"
             class="selected"
           >
-            Hacking
+            Functions
           </a>
-         
-         
-         
-         
-        
-          <a
-            href="http://localhost:4000/learn/multiplayer.html"
-            class=""
-          >
-            Multiplayer
-          </a>
-         
-        
-          <a
-            href="http://localhost:4000/learn/nopoly_meshes.html"
-            class=""
-          >
-            No-poly Meshes
-          </a>
-         
-         
          
       </div>
     </div>
     <duv class="main-container">
       <div id="content" class="main-content" role="main">
         <div>
-          <h1 id="hacking-kepler">Hacking Kepler</h1>
+          <h1 id="functions">Functions</h1>
 
-<p>Contributing to the Kepler project. For hacking in regards to cheating see
-<a href="multiplayer.html#cheating">Multiplayer</a></p>
+<h3 id="declarations">Declarations</h3>
 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fn Vector Add(Vector a, Vector b) {
+  return Vector(a.x + b.x, a.y + b.y);
+}
+</code></pre></div></div>
+
+<h3 id="chains">Chains</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import { Trim, AddHello, UpperCase } from "./string_functions"
+
+// These are the same:
+let my_str = "  Bob  "-&gt;Trim()-&gt;AddHello()-&gt;Uppercase();
+let my_str = Uppercase(AddHello(Trim("  Bob  ")));
+
+// my_str : "HELLO BOB"
+</code></pre></div></div>
+
+        </div>
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; height: 150px;">
+          
+            <a href="boxes.html">&lsaquo; Previous</a>
+          
+          
+            <div></div>
+          
         </div>
 
         <footer class="site-footer">
@@ -147,7 +179,7 @@
 			  crossorigin="anonymous"></script>
     <script
       type="text/javascript"
-      src="/assets/js/script.js?v=ab53ec03ff1568fceee083b15128804e12836ca4"
+      src="/assets/js/script.js?v=106fe4f670f7613a319e59ff801514c9e7de8bb6"
     ></script>
   </body>
 </html>
