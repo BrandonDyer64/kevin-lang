@@ -5,17 +5,17 @@
     <meta charset="UTF-8" />
 
     <!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Fractal | Kepler</title>
+<title>Fractal | kevin-lang</title>
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Fractal" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Kepler, an Open Game Engine" />
-<meta property="og:description" content="Kepler, an Open Game Engine" />
+<meta name="description" content="The Kevin language" />
+<meta property="og:description" content="The Kevin language" />
 <link rel="canonical" href="http://localhost:4000/fractal/" />
 <meta property="og:url" content="http://localhost:4000/fractal/" />
-<meta property="og:site_name" content="Kepler" />
+<meta property="og:site_name" content="kevin-lang" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/fractal/","headline":"Fractal","description":"Kepler, an Open Game Engine","@type":"WebPage","@context":"http://schema.org"}</script>
+{"url":"http://localhost:4000/fractal/","headline":"Fractal","description":"The Kevin language","@type":"WebPage","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,7 +26,7 @@
     />
     <link
       rel="stylesheet"
-      href="/assets/css/style.css?v=b3ceb4d6dc2c93650a66312e707b8145b8cdb338"
+      href="/assets/css/style.css?v=3e8b511d4ed20f829f229b9253fb4fb68f4e9c2a"
     />
   </head>
   <body>
@@ -34,7 +34,7 @@
       <div class="header">
         <span class="title"
           ><a href="http://localhost:4000"
-            >Kepler
+            >Kevin
             <span class="thin">&nbsp;Docs</span></a
           ></span
         >
@@ -48,27 +48,15 @@
         </a>
          
         <a
-          href="http://localhost:4000/tutorials/"
+          href="http://localhost:4000/learn/"
           class=""
-          >tutorials</a
+          >learn</a
         >
          
         <a
-          href="http://localhost:4000/flowscript/"
+          href="http://localhost:4000/examples/"
           class=""
-          >flowscript</a
-        >
-         
-        <a
-          href="http://localhost:4000/fractal/"
-          class="selected"
-          >fractal</a
-        >
-         
-        <a
-          href="http://localhost:4000/actor/"
-          class=""
-          >actor</a
+          >examples</a
         >
         
       </div>
@@ -123,22 +111,27 @@
 <span class="n">in</span> <span class="n">color</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">WHITE</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">BLACK</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">PINK</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">BLUE</span><span class="o">/</span><span class="mi">2</span> <span class="n">GOLD</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">in</span> <span class="n">hasCase</span> <span class="o">=</span> <span class="n">boolean</span><span class="p">(</span><span class="mi">85</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
 
-<span class="k">return</span> <span class="n">Block</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
-  <span class="o">|&gt;</span> <span class="n">cut</span><span class="p">(</span><span class="n">Block</span><span class="p">(</span><span class="n">pos</span><span class="p">{</span><span class="n">y</span><span class="o">:</span> <span class="n">y</span><span class="o">-</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">.},</span> <span class="p">.</span><span class="mo">005</span><span class="p">,</span> <span class="p">.</span><span class="mo">01</span><span class="p">,</span> <span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="p">.</span><span class="mo">001</span><span class="p">)</span> <span class="c1">// Charger
-</span>  <span class="o">|&gt;</span> <span class="n">cut</span><span class="p">(</span><span class="cm">/* bla bla bla */</span><span class="p">)</span>                               <span class="c1">// Speaker
-</span>  <span class="o">|&gt;</span> <span class="n">add</span><span class="p">(</span><span class="n">PhoneCase</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">))</span>                 <span class="c1">// Case
-</span></code></pre></div></div>
+<span class="n">out</span> <span class="n">domain</span> <span class="o">=</span> <span class="p">(</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">.),</span> <span class="n">max</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span>
+
+<span class="k">return</span> <span class="p">({</span>
+  <span class="n">color</span><span class="o">:</span> <span class="n">color</span><span class="p">,</span>
+  <span class="n">dist</span><span class="o">:</span> <span class="n">Block</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">cut</span><span class="p">(</span><span class="n">Block</span><span class="p">(</span><span class="n">pos</span><span class="p">{</span><span class="n">y</span><span class="o">:</span> <span class="n">y</span><span class="o">-</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">.},</span> <span class="p">.</span><span class="mo">005</span><span class="p">,</span> <span class="p">.</span><span class="mo">01</span><span class="p">,</span> <span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="p">.</span><span class="mo">001</span><span class="p">)</span> <span class="c1">// Charger
+</span>    <span class="o">|&gt;</span> <span class="n">cut</span><span class="p">(</span><span class="cm">/* bla bla bla */</span><span class="p">)</span>                               <span class="c1">// Speaker
+</span>    <span class="o">|&gt;</span> <span class="n">add</span><span class="p">(</span><span class="n">PhoneCase</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">))</span>                 <span class="c1">// Case
+</span><span class="p">})</span>
+</code></pre></div></div>
 
         </div>
 
         <footer class="site-footer">
           
           <span class="site-footer-owner"
-            ><a href="https://github.com/MagentexSoftware/Kepler"
-              >Kepler</a
+            ><a href="https://github.com/BrandonDyer64/kevin-lang"
+              >kevin-lang</a
             >
             is maintained by
-            <a href="https://github.com/MagentexSoftware">MagentexSoftware</a
+            <a href="https://github.com/BrandonDyer64">BrandonDyer64</a
             >.</span
           >
           
@@ -158,7 +151,7 @@
 			  crossorigin="anonymous"></script>
     <script
       type="text/javascript"
-      src="/assets/js/script.js?v=b3ceb4d6dc2c93650a66312e707b8145b8cdb338"
+      src="/assets/js/script.js?v=3e8b511d4ed20f829f229b9253fb4fb68f4e9c2a"
     ></script>
   </body>
 </html>
