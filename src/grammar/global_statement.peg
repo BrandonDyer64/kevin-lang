@@ -1,9 +1,0 @@
-#include "function"
-
-GlobalStatement
-  = fn:Function _ {
-    return {
-      type: "function",
-      ...fn
-    }
-  }

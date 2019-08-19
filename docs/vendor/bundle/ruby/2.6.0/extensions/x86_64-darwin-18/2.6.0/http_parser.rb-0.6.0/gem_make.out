@@ -1,0 +1,16 @@
+current directory: /Users/brandon.dyer/Documents/GitHub/Kepler/docs/vendor/bundle/ruby/2.6.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+/Users/brandon.dyer/homebrew/opt/ruby/bin/ruby -I /Users/brandon.dyer/homebrew/Cellar/ruby/2.6.3/lib/ruby/2.6.0 -r ./siteconf20190603-24827-qlne25.rb extconf.rb
+creating Makefile
+
+current directory: /Users/brandon.dyer/Documents/GitHub/Kepler/docs/vendor/bundle/ruby/2.6.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+make "DESTDIR=" clean
+
+current directory: /Users/brandon.dyer/Documents/GitHub/Kepler/docs/vendor/bundle/ruby/2.6.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+make "DESTDIR="
+compiling ruby_http_parser.c
+compiling ryah_http_parser.c
+linking shared-object ruby_http_parser.bundle
+
+current directory: /Users/brandon.dyer/Documents/GitHub/Kepler/docs/vendor/bundle/ruby/2.6.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 ruby_http_parser.bundle ./.gem.20190603-24827-15v5w75
