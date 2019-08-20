@@ -332,6 +332,9 @@ body.dark .main-container .main-content div.highlight pre.highlight .s, body.dar
 body.dark .main-container .main-content div.highlight pre.highlight .c1, body.dark .main-container .main-content div.highlight pre.highlight .cp { color: #607D8B; }
 body.dark .main-container .main-content .site-footer { border-color: #455A64; }
 body .thin { font-weight: 100; }
+body .navbar { position: absolute; top: 0px; left: 0px; width: 100%; display: flex; flex-direction: row; }
+body .navbar a { padding: 10px 14px; color: inherit; font-weight: 200; border-bottom: 2px solid transparent; }
+body .navbar a:hover { text-decoration: none; border-bottom-color: #B0BEC5; background-color: #B0BEC522; }
 body .sidebar { color: #d5dae6; background-color: #37474f; width: 0px; padding: 26px; padding-right: 0px; min-width: 300px; display: flex; flex-direction: column; white-space: nowrap; transition: min-width 0.13s linear; overflow: hidden; }
 body .sidebar.toggled { min-width: 0px; }
 @media screen and (max-width: 1000px) { body .sidebar { position: absolute; min-width: 0px; height: 100vh; }

@@ -70,6 +70,9 @@ outer[1; 3];
 
 ### Multidimensional Arrays
 
+Multidimensional arrays are stored in contiguous memory as a single array, but
+are accessed with multiple values.
+
 #### 2D
 
 ```
@@ -96,6 +99,28 @@ array[2, 3, 1] = 4;
 
 You can have as many dimensions as you like, but remember that each dimension
 consumes exponentially more memory.
+
+```
+let [Type] array_1d     = [i32; x] => value;             array_1d[x];
+let [Type,] array_2d    = [i32; x, y] => value;          array_2d[x, y];
+let [Type,,] array_3d   = [i32; x, y, z] => value;       array_3d[x, y, z];
+let [Type,,,] array_4d  = [i32; x, y, z, w] => value;    array_4d[x, y, z, w];
+let [Type,,,,] array_5d = [i32; x, y, z, w, h] => value; array_5d[x, y, z, w, h];
+...
+```
+
+### Jagged Arrays
+
+Jagged arrays are arrays of arrays and are not stored in contiguous memory.
+These are slower, and have less memory efficiency than a multidimensional array,
+but have the advantage of being able to change an entire row in one instruction.
+
+```
+let mut [mut [i32]] array = [[i32]; 4] (it_x) => [i32; 4] (it_z) => it_x * it;
+let row = [i32; 4] => it + 2;
+array[2] = row;
+array[1][3] = 6;
+```
 
 ### Tuples
 

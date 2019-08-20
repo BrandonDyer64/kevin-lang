@@ -30,49 +30,55 @@
     />
   </head>
   <body>
-    <div class="sidebar">
-      <div class="header">
-        <span class="title"
-          ><a href="{{ site.url }}"
-            >Kevin
-            <span class="thin">&nbsp;Docs</span></a
-          ></span
-        >
-      </div>
-      <div class="top-section">
-        <a
-          href="{{ site.url }}"
-          class="{% if '/' == page.url %}selected{% endif %}"
-        >
-          home
-        </a>
-        {% for module in site.modules %} {% capture module_dir %}/{{ module
-        }}/{% endcapture %}
-        <a
-          href="{{ site.url }}/{{ module }}/"
-          class="{% if module_dir == page.dir %}selected{% endif %}"
-          >{{ module }}</a
-        >
-        {% endfor %}
-      </div>
-      <div class="main-section">
-        {% if page.dir == '/learn/' %}
-          {% assign sorted_pages = site.pages | sort: 'sort_order' %}
-        {% else %}
-          {% assign sorted_pages = site.pages | sort: 'title' %}
-        {% endif %}
-        {% for p in sorted_pages %}
-        {% if p.dir == page.dir and p.url != p.dir %}
-          <a
-            href="{{ site.url }}{{ p.url }}"
-            class="{% if p.url == page.url %}selected{% endif %}"
+    {% if page.dir != '/' %}
+      <div class="sidebar">
+        <div class="header">
+          <span class="title"
+            ><a href="{{ site.url }}"
+              >Kevin
+              <span class="thin">&nbsp;Docs</span></a
+            ></span
           >
-            {{ p.title }}
+        </div>
+        <div class="top-section">
+          <a
+            href="{{ site.url }}"
+            class="{% if '/' == page.url %}selected{% endif %}"
+          >
+            home
           </a>
-        {% endif %} {% endfor %}
+          {% for module in site.modules %} {% capture module_dir %}/{{ module
+          }}/{% endcapture %}
+          <a
+            href="{{ site.url }}/{{ module }}/"
+            class="{% if module_dir == page.dir %}selected{% endif %}"
+            >{{ module }}</a
+          >
+          {% endfor %}
+        </div>
+        <div class="main-section">
+          {% if page.dir == '/learn/' %}
+            {% assign sorted_pages = site.pages | sort: 'sort_order' %}
+          {% else %}
+            {% assign sorted_pages = site.pages | sort: 'title' %}
+          {% endif %}
+          {% for p in sorted_pages %}
+          {% if p.dir == page.dir and p.url != p.dir %}
+            <a
+              href="{{ site.url }}{{ p.url }}"
+              class="{% if p.url == page.url %}selected{% endif %}"
+            >
+              {{ p.title }}
+            </a>
+          {% endif %} {% endfor %}
+        </div>
       </div>
-    </div>
-    <duv class="main-container">
+    {% else %}
+      <div class="navbar">
+        <a href="/learn">Docs</a>
+      </div>
+    {% endif %}
+    <div class="main-container">
       <div id="content" class="main-content" role="main">
         <div>
           {{ content }}
