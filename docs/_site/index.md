@@ -4,21 +4,32 @@ Low-level, performance first, data-oriented, systems language.
 
 ## Why Use Kevin?
 
-### Powerful
+<div style="display: flex; justify-content:space-between; text-align: justify; font-size: 0.9em;">
+<div style="width: calc(33% - 20px);">
+
+<h3>Powerful</h3>
 
 Kevin gives you safety by default, and lets you take off the training wheels
-whenever you need, giving you the ability to implement the way _you_ like.
+whenever you need, giving you the ability to implement the way you like.
 
-### Parallel
+</div>
+<div style="width: calc(33% - 20px);">
+
+<h3>Parallel</h3>
 
 Kevin is highly parallel out of the box. Everything that can be put in a
-separate thread _is_ put in a thread.
+separate thread is put in a thread.
 
-### Portable
+</div>
+<div style="width: calc(33% - 20px);">
+
+<h3>Portable</h3>
 
 Kevin lets you do low-level systems programming right along side high-level
 interface design, all while keeping an elegent, readable syntax. Kevin can
 be compiled to nearly any operating system or platform.
+</div>
+</div>
 
 ## Learn Kevin
 
