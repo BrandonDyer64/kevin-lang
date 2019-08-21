@@ -330,6 +330,8 @@ body.dark .main-container .main-content div.highlight pre.highlight .o, body.dar
 body.dark .main-container .main-content div.highlight pre.highlight .k, body.dark .main-container .main-content div.highlight pre.highlight .kt, body.dark .main-container .main-content div.highlight pre.highlight .kd { color: #C8E6C9; }
 body.dark .main-container .main-content div.highlight pre.highlight .s, body.dark .main-container .main-content div.highlight pre.highlight .nf, body.dark .main-container .main-content div.highlight pre.highlight .s1, body.dark .main-container .main-content div.highlight pre.highlight .s2 { color: #ef5350; }
 body.dark .main-container .main-content div.highlight pre.highlight .c1, body.dark .main-container .main-content div.highlight pre.highlight .cp { color: #607D8B; }
+body.dark .main-container .main-content table th, body.dark .main-container .main-content table td { border: 1px solid #37474F; }
+body.dark .main-container .main-content code { background-color: #37474F; color: #ECEFF1; }
 body.dark .main-container .main-content .site-footer { border-color: #455A64; }
 body .thin { font-weight: 100; }
 body .navbar { position: absolute; top: 0px; left: 0px; width: 100%; display: flex; flex-direction: row; }
