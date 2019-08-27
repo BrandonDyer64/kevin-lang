@@ -8,8 +8,8 @@ previous: boxes
 ### Declarations
 
 ```
-fn Vector Add(Vector a, Vector b) {
-  return Vector(a.x + b.x, a.y + b.y);
+fn Add(a: Vector, b: Vector): Vector {
+  Vector(a.x + b.x, a.y + b.y)
 }
 ```
 

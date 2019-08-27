@@ -30,27 +30,27 @@ next: variables
 
 ```
 // All of these make the same array
-let array = [1, 2, 3];
-let array = [i32; 3] => it;
+let array = [1, 2, 3]
+let array = [i32; 3] { it }
 let array = [
     , 1
     , 2
     , 3
-];
+]
 ```
 
 ```
               ┌──────────── array type
               │   ┌──────── array length
-              │   │     ┌── iterator index
-let array = [i32; 3] => it;
+              │   │    ┌─── iterator index
+let array = [i32; 3] { it }
 ```
 
 An inner array
 
 ```
-let mut [i32] outer = [1, 2, 3, 4, 5];
-let mut [i32] inner = outer[1; 3];
+let mut outer: i32[] = [1, 2, 3, 4, 5]
+let mut inner: i32[] = outer[1; 3]
 
 // outer : 1, 2, 3, 4, 5
 // inner :    2, 3, 4
@@ -76,7 +76,7 @@ are accessed with multiple values.
 #### 2D
 
 ```
-let mut [i32,] array = [i32; 4, 4] => it_x * it_y;
+let mut array: i32[,] = [i32; 4, 4] { it_x * it_y }
 
 // array:
 // 0 0 0 0
@@ -85,27 +85,27 @@ let mut [i32,] array = [i32; 4, 4] => it_x * it_y;
 // 0 3 6 9
 
 // Modify the array
-array[2, 3] = 6;
+array[2, 3] = 6
 ```
 
 #### 3D
 
 ```
-let mut [i32,,] array = [i32; 4, 4, 4] => it_x * it_y * it_z;
+let mut [i32,,] array = [i32; 4, 4, 4] => it_x * it_y * it_z
 
 // Modify the array
-array[2, 3, 1] = 4;
+array[2, 3, 1] = 4
 ```
 
 You can have as many dimensions as you like, but remember that each dimension
 consumes exponentially more memory.
 
 ```
-let [Type] array_1d     = [i32; x] => value;             array_1d[x];
-let [Type,] array_2d    = [i32; x, y] => value;          array_2d[x, y];
-let [Type,,] array_3d   = [i32; x, y, z] => value;       array_3d[x, y, z];
-let [Type,,,] array_4d  = [i32; x, y, z, w] => value;    array_4d[x, y, z, w];
-let [Type,,,,] array_5d = [i32; x, y, z, w, h] => value; array_5d[x, y, z, w, h];
+let [Type] array_1d     = [i32; x] { value }             array_1d[x]
+let [Type,] array_2d    = [i32; x, y] { value }          array_2d[x, y]
+let [Type,,] array_3d   = [i32; x, y, z] { value }       array_3d[x, y, z]
+let [Type,,,] array_4d  = [i32; x, y, z, w] { value }    array_4d[x, y, z, w]
+let [Type,,,,] array_5d = [i32; x, y, z, w, h] { value } array_5d[x, y, z, w, h]
 ...
 ```
 
@@ -116,24 +116,24 @@ These are slower, and have less memory efficiency than a multidimensional array,
 but have the advantage of being able to change an entire row in one instruction.
 
 ```
-let mut [mut [i32]] array = [[i32]; 4] (it_x) => [i32; 4] (it_z) => it_x * it;
-let row = [i32; 4] => it + 2;
-array[2] = row;
-array[1][3] = 6;
+let mut array = [i32[]; 4] (it_outer) { [i32; 4] { it_outer * it } }
+let row = [i32; 4] { it + 2 }
+array[2] = row
+array[1][3] = 6
 ```
 
 ### Tuples
 
 ```
-fn (i32, string) GetTuple((i32, string) tuple) {
-    let (num, str) = tuple;
-    return (num + 1, str + " pizzas");
+fn GetTuple(tuple: (i32, string)): (i32, string) {
+    let (num, str) = tuple
+    return (num + 1, str + " pizzas")
 }
 
-let tuple = (15, "Krusty Krab");
-let new_tuple = GetTuple(tuple);
-let (num, str) = new_tuple;
-Console::Print("I have ${num} ${str}");
+let tuple = (15, "Krusty Krab")
+let new_tuple = GetTuple(tuple)
+let (num, str) = new_tuple
+Console::Print("I have ${num} ${str}")
 ```
 
 ### Boxes

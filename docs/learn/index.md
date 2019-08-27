@@ -5,15 +5,15 @@ sort_order: 0
 # Learn Kevin
 
 ```kev
-fn symbol Main([string] args) {
+fn Main(args: string[]): symbol {
     // Hi there!
-    Console::Print("Welcome to Kevin!");
+    Print("Welcome to Kevin!")
 
-    "Things get pretty interesting from here"->Console::Print();
+    "Things get pretty interesting from here" -> Print
 
-    let Us see = What::Kevin(can->Do());
+    let Us see = What::Kevin(can -> Do)
 
-    return :here_we_go;
+    return :here_we_go
 }
 ```
 

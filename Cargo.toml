@@ -1,0 +1,16 @@
+[package]
+name = "kevin"
+version = "0.1.0"
+edition = "2018"
+authors = [ "Brandon Dyer <BrandonDyer64@gmail.com>" ]
+description = "A highly parallel systems language"
+documentation = "https://github.com/BrandonDyer64/kevin-lang"
+homepage = "https://github.com/BrandonDyer64/kevin-lang"
+repository = "https://github.com/BrandonDyer64/kevin-lang"
+readme = "README.md"
+keywords = ["language", "compiler"]
+license = "MIT"
+
+[dependencies]
+llvm-sys = "80.1.1"
+regex = "1"

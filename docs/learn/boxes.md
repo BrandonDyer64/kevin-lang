@@ -9,14 +9,14 @@ next: functions
 ```
 box Vector {
 
-  // Fields
-  float x;
-  float y;
+    // Fields
+    x: f32
+    y: f32
 
-  // Factory
-  (float x, float y) {
-    return { x, y };
-  }
+    // Factory
+    (x: f32, y: f32) {
+        return { x, y }
+    }
 
 }
 ```

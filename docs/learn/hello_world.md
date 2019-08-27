@@ -10,14 +10,14 @@ A simple program to get started.
 ```
 import Console from "console"
 
-fn symbol Main([string] args) {
+fn Main(args: string[]): symbol {
 
-    Console::Print("Hello, World!");
+    Console::Print("Hello, World!")
 
-    return :ok;
+    return :ok
 }
 
-export Main;
+export Main
 ```
 
 We can create a binary by running the compiler.
