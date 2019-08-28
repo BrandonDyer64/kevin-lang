@@ -18,11 +18,11 @@ impl<'a> Lexer<'a> {
 }
 
 impl<'a> Iterator for Lexer<'a> {
-    type Item = Token;
+    type Item = (Token, usize);
     fn next(&mut self) -> Option<Self::Item> {
         let chars = self.chars.deref_mut();
         let src = self.input;
-        let mut pos = skip_whitespace(self.pos, chars);
+        let mut pos = skip_whitespace(self.pos, chars)?;
         
         let start = pos;
         let next = chars.next();
@@ -33,187 +33,176 @@ impl<'a> Iterator for Lexer<'a> {
 
         pos += 1;
         
-        let result = match next.unwrap() {
-            '{' => Token::LBrace,
-            '}' => Token::RBrace,
-            '[' => Token::LBracket,
-            ']' => Token::RBracket,
-            '(' => Token::LParen,
-            ')' => Token::RParen,
-            ',' => Token::Comma,
-            ';' => Token::Semicolon,
-            '\n' => Token::LineBreak,
+        let result: Option<Token> = match next? {
+            '{' => Some(Token::LBrace),
+            '}' => Some(Token::RBrace),
+            '[' => Some(Token::LBracket),
+            ']' => Some(Token::RBracket),
+            '(' => Some(Token::LParen),
+            ')' => Some(Token::RParen),
+            ',' => Some(Token::Comma),
+            ';' => Some(Token::Semicolon),
+            '\n' => Some(Token::LineBreak),
             ':' => do_colon(&src, start, &mut pos, chars),
-            '/' => {
-                let ch = match chars.peek() {
-                    Some(ch) => *ch,
-                    None => return None
-                };
-                match ch {
-                    '/' => {
-                        loop {
-                            let ch = match chars.peek() {
-                                Some(ch) => *ch,
-                                None => return None
-                            };
-
-                            if ch == '\n' {
-                                break;
-                            }
-                            chars.next();
-                            pos += 1;
-                        }
-                        Token::Comment(src[start + 2..pos].to_string())
-                    }
-                    _ => Token::Op(Opr::Div)
-                }
-            },
-
-            '.' | '0' ..= '9' => {
-                // Parse number literal
-                loop {
-                    let ch = match chars.peek() {
-                        Some(ch) => *ch,
-                        None => return None
-                    };
-
-                    // Parse float.
-                    if ch != '.' && !ch.is_digit(16) {
-                        break;
-                    }
-
-                    chars.next();
-                    pos += 1;
-                }
-
-                Token::Number(src[start..pos].parse().unwrap())
-            },
-
-            'a' ..= 'z' | 'A' ..= 'Z' | '_' => {
-                // Parse identifier
-                loop {
-                    let ch = match chars.peek() {
-                        Some(ch) => *ch,
-                        None => return None
-                    };
-
-                    // A word-like identifier only contains underscores and alphanumeric characters.
-                    if ch != '_' && !ch.is_alphanumeric() {
-                        break;
-                    }
-
-                    chars.next();
-                    pos += 1;
-                }
-
-                match &src[start..pos] {
-                    "extern" => Token::Extern,
-                    "if" => Token::If,
-                    "then" => Token::Then,
-                    "else" => Token::Else,
-                    "fn" => Token::Fun,
-                    "and" => Token::Op(Opr::And),
-                    "or" => Token::Op(Opr::Or),
-                    "xor" => Token::Op(Opr::Xor),
-                    "let" => Token::Let,
-                    "mut" => Token::Mut,
-                    "unary" => Token::Unary,
-                    "binary" => Token::Binary,
-                    "var" => Token::Var,
-
-                    ident => Token::Ident(ident.to_string())
-                }
-            },
-
-            op => {
-                // Parse operator
-                let ch = match chars.peek() {
-                    Some(ch) => *ch,
-                    None => return None
-                };
-
-                let mut do_next = true;
-
-                let op = match ch {
-                    '=' => match op {
-                        '=' => Opr::Equ,
-                        '!' => Opr::Neq,
-                        '>' => Opr::Geq,
-                        '<' => Opr::Leq,
-                        '*' => Opr::AssignMul,
-                        '/' => Opr::AssignDiv,
-                        '%' => Opr::AssignMod,
-                        '+' => Opr::AssignAdd,
-                        '-' => Opr::AssignSub,
-                        _ => Opr::Assign
-                    },
-                    _ => {
-                        do_next = false;
-                        match op {
-                            '=' => Opr::Assign,
-                            '>' => Opr::Gtr,
-                            '<' => Opr::Les,
-                            '^' => Opr::Exp,
-                            '*' => Opr::Mul,
-                            '/' => Opr::Div,
-                            '%' => Opr::Mod,
-                            '+' => Opr::Add,
-                            '-' => Opr::Sub,
-                            '!' => Opr::Not,
-                            _ => panic!(op),
-                        }
-                    }
-                };
-
-                if do_next {
-                    chars.next();
-                    pos += 1;
-                }
-
-                Token::Op(op)
-            }
+            '/' => do_slash(&src, start, &mut pos, chars),
+            '.' | '0' ..= '9' => do_number(&src, start, &mut pos, chars),
+            'a' ..= 'z' | 'A' ..= 'Z' | '_' => do_ident(&src, start, &mut pos, chars),
+            op => do_op(op, &mut pos, chars),
         };
         self.pos = pos;
-        return Some(result);
+        Some((result?, pos))
     }
 }
 
-fn skip_whitespace(pos: usize, chars: &mut Peekable<Chars>) -> usize {
+fn skip_whitespace(pos: usize, chars: &mut Peekable<Chars>) -> Option<usize> {
     let mut pos = pos;
     loop {
-        {
-            let ch = match chars.peek() {
-                Some(ch) => *ch,
-                None => return pos
-            };
-            if ch != ' ' {
-                break;
-            }
+        let ch = *chars.peek()?;
+        if ch != ' ' {
+            break;
         }
         chars.next();
         pos += 1;
     }
-    pos
+    Some(pos)
 }
 
-fn do_colon(src: &str, start: usize, pos: &mut usize, chars: &mut Peekable<Chars>) -> Token {
-    {
-        loop {
-            let ch = match chars.peek() {
-                Some(ch) => *ch,
-                None => return Token::Colon
-            };
+fn do_colon(src: &str, start: usize, pos: &mut usize, chars: &mut Peekable<Chars>) -> Option<Token> {
+    loop {
+        let ch = *chars.peek()?;
+        if ch != '_' && !ch.is_alphanumeric() {
+            break;
+        }
+        chars.next();
+        *pos += 1;
+    }
+    if start + 1 == *pos {
+        Some(Token::Colon)
+    } else {
+        Some(Token::Symbol(src[start + 1..*pos].to_string()))
+    }
+}
 
-            if ch != '_' && !ch.is_alphanumeric() {
-                break;
+fn do_slash(src: &str, start: usize, pos: &mut usize, chars: &mut Peekable<Chars>) -> Option<Token> {
+    let ch = *chars.peek()?;
+    *pos += 1;
+    chars.next();
+    match ch {
+        '/' => loop {
+            let ch = *chars.peek()?;
+            if ch == '\n' {
+                break Some(Token::Comment(src[start + 2..*pos].to_string()));
             }
             chars.next();
             *pos += 1;
-        }
-        if start + 1 == *pos {
-            Token::Colon
-        } else {
-            Token::Symbol(src[start + 1..*pos].to_string())
-        }
+        },
+        '*' => loop {
+            let ch = *chars.peek()?;
+            if ch == '*' {
+                chars.next();
+                *pos += 1;
+                let ch = *chars.peek()?;
+                if ch == '/' {
+                    break Some(Token::Comment(src[start + 2..*pos-1].to_string()));
+                }
+            }
+            chars.next();
+            *pos += 1;
+        },
+        _ => Some(Token::Op(Opr::Div))
     }
+}
+
+fn do_number(src: &str, start: usize, pos: &mut usize, chars: &mut Peekable<Chars>) -> Option<Token> {
+    let mut is_integer = true;
+    loop {
+        let ch = *chars.peek()?;
+        if ch != '.' && !ch.is_digit(16) {
+            break if is_integer {
+                Some(Token::Integer(src[start..*pos].parse::<u64>().unwrap()))
+            } else {
+                Some(Token::Float(src[start..*pos].parse::<f64>().unwrap()))
+            };
+        }
+        if ch == '.' {
+            is_integer = false;
+        }
+        chars.next();
+        *pos += 1;
+    }
+}
+
+fn do_ident(src: &str, start: usize, pos: &mut usize, chars: &mut Peekable<Chars>) -> Option<Token> {
+    let ident = loop {
+        let ch = *chars.peek()?;
+        if ch != '_' && !ch.is_alphanumeric() {
+            break &src[start..*pos];
+        }
+        chars.next();
+        *pos += 1;
+    };
+
+    let token = match ident {
+        "import" => Token::Import,
+        "from" => Token::Fromm,
+        "export" => Token::Export,
+        "if" => Token::If,
+        "then" => Token::Then,
+        "else" => Token::Else,
+        "fn" => Token::Fun,
+        "and" => Token::Op(Opr::And),
+        "or" => Token::Op(Opr::Or),
+        "xor" => Token::Op(Opr::Xor),
+        "let" => Token::Let,
+        "mut" => Token::Mut,
+        "unary" => Token::Unary,
+        "binary" => Token::Binary,
+        "var" => Token::Var,
+
+        ident => Token::Ident(ident.to_string())
+    };
+    Some(token)
+}
+
+fn do_op(op: char, pos: &mut usize, chars: &mut Peekable<Chars>) -> Option<Token> {
+    let ch = *chars.peek()?;
+    let mut do_next = true;
+    let op = match ch {
+        '=' => match op {
+            '=' => Opr::Equ,
+            '!' => Opr::Neq,
+            '>' => Opr::Geq,
+            '<' => Opr::Leq,
+            '*' => Opr::AssignMul,
+            '/' => Opr::AssignDiv,
+            '%' => Opr::AssignMod,
+            '+' => Opr::AssignAdd,
+            '-' => Opr::AssignSub,
+            _ => Opr::Assign
+        },
+        _ => {
+            do_next = false;
+            match op {
+                '=' => Opr::Assign,
+                '>' => Opr::Gtr,
+                '<' => Opr::Les,
+                '^' => Opr::Exp,
+                '*' => Opr::Mul,
+                '/' => Opr::Div,
+                '%' => Opr::Mod,
+                '+' => Opr::Add,
+                '-' => Opr::Sub,
+                '!' => Opr::Not,
+                '?' => Opr::Drf,
+                _ => {
+                    return None
+                }
+            }
+        }
+    };
+    if do_next {
+        chars.next();
+        *pos += 1;
+    }
+    Some(Token::Op(op))
 }

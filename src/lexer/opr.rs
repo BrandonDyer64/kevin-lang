@@ -22,4 +22,5 @@ pub enum Opr {
     Add,
     Sub,
     Not,
+    Drf,
 }
