@@ -167,8 +167,6 @@ fn do_ident(src: &str, start: usize, pos: &mut usize, chars: &mut Peekable<Chars
         "xor" => Token::Op(Opr::Xor),
         "let" => Token::Let,
         "mut" => Token::Mut,
-        "unary" => Token::Unary,
-        "binary" => Token::Binary,
         "var" => Token::Var,
 
         ident => Token::Ident(ident.to_string())

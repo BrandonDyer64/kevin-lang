@@ -4,7 +4,6 @@ pub use opr::Opr;
 
 #[derive(PartialEq, Debug)]
 pub enum Token {
-    Binary,
     Colon,
     Comma,
     Comment(String),
@@ -31,6 +30,5 @@ pub enum Token {
     Str(String),
     Symbol(String),
     Then,
-    Unary,
     Var,
 }
