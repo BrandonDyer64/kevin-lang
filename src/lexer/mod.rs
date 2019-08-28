@@ -18,22 +18,16 @@ impl<'a> Lexer<'a> {
 }
 
 impl<'a> Iterator for Lexer<'a> {
+
     type Item = (Token, usize);
+
     fn next(&mut self) -> Option<Self::Item> {
         let chars = self.chars.deref_mut();
         let src = self.input;
         let mut pos = skip_whitespace(self.pos, chars)?;
-        
         let start = pos;
-        let next = chars.next();
-
-        if next.is_none() {
-            return None;
-        }
-
         pos += 1;
-        
-        let result: Option<Token> = match next? {
+        let result: Option<Token> = match chars.next()? {
             '{' => Some(Token::LBrace),
             '}' => Some(Token::RBrace),
             '[' => Some(Token::LBracket),
@@ -43,6 +37,7 @@ impl<'a> Iterator for Lexer<'a> {
             ',' => Some(Token::Comma),
             ';' => Some(Token::Semicolon),
             '\n' => Some(Token::LineBreak),
+            '"' => do_quote(&src, start, &mut pos, chars),
             ':' => do_colon(&src, start, &mut pos, chars),
             '/' => do_slash(&src, start, &mut pos, chars),
             '.' | '0' ..= '9' => do_number(&src, start, &mut pos, chars),
@@ -65,6 +60,23 @@ fn skip_whitespace(pos: usize, chars: &mut Peekable<Chars>) -> Option<usize> {
         pos += 1;
     }
     Some(pos)
+}
+
+fn do_quote(src: &str, start: usize, pos: &mut usize, chars: &mut Peekable<Chars>) -> Option<Token> {
+    loop {
+        let ch = *chars.peek()?;
+        if ch == '\\' {
+            *pos += 1;
+            chars.next();
+        }
+        if ch == '"' {
+            *pos += 1;
+            chars.next();
+            break Some(Token::Str(src[start + 1..*pos - 1].to_string()));
+        }
+        chars.next();
+        *pos += 1;
+    }
 }
 
 fn do_colon(src: &str, start: usize, pos: &mut usize, chars: &mut Peekable<Chars>) -> Option<Token> {

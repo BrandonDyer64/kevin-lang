@@ -1,9 +1,9 @@
-extern crate regex;
+
 mod lexer;
 use lexer::{ Lexer, Token };
 
 static SOURCE: &'static str = r#"
-import Console from
+import Console from "console"
 
 fn Main(args: symbol[]): symbol {
     // This is a comment
@@ -22,12 +22,12 @@ fn main() {
         if token == Token::RBrace
         || token == Token::RParen {
             indent -= 1;
-            println!("{}: {}]", pos, "    ".repeat(indent));
+            println!("{:>5}: {}]", pos, "    ".repeat(indent));
         }
-        println!("{}: {}{:?}", pos, "    ".repeat(indent), token);
+        println!("{:>5}: {}{:?}", pos, "    ".repeat(indent), token);
         if token == Token::LBrace
         || token == Token::LParen {
-            println!("{}: {}[", pos, "    ".repeat(indent));
+            println!("{:>5}: {}[", pos, "    ".repeat(indent));
             indent += 1;
         }
     }

@@ -28,6 +28,7 @@ pub enum Token {
     RBracket,
     RParen,
     Semicolon,
+    Str(String),
     Symbol(String),
     Then,
     Unary,
