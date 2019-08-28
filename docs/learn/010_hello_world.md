@@ -1,6 +1,7 @@
 ---
 sort_order: 10
-next: basic_types
+previous: index
+next: 020_basic_types
 ---
 
 # Hello World

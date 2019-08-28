@@ -1,7 +1,7 @@
 ---
 sort_order: 50
-previous: boxes
-next: loops
+previous: 040_boxes
+next: 060_loops
 ---
 
 # Functions

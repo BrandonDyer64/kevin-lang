@@ -1,7 +1,7 @@
 ---
 sort_order: 30
-previous: basic_types
-next: boxes
+previous: 020_basic_types
+next: 040_boxes
 ---
 
 # Variables

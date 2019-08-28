@@ -1,7 +1,7 @@
 ---
 sort_order: 20
-previous: hello_world
-next: variables
+previous: 010_hello_world
+next: 030_variables
 ---
 
 # Basic Types

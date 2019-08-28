@@ -1,5 +1,6 @@
 ---
 sort_order: 0
+next: 010_hello_world
 ---
 
 # Learn Kevin

@@ -1,7 +1,7 @@
 ---
 sort_order: 40
-previous: variables
-next: functions
+previous: 030_variables
+next: 050_functions
 ---
 
 # Boxes
