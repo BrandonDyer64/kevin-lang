@@ -1,6 +1,7 @@
 ---
 sort_order: 50
 previous: boxes
+next: loops
 ---
 
 # Functions
