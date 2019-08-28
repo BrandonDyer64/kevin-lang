@@ -1,4 +1,5 @@
 build/
 /kevin
 docs/vendor/
+docs/_site/
 target/
