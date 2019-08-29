@@ -11,7 +11,7 @@ A simple program to get started.
 ```
 import Console from "console"
 
-fn Main(args: string[]): symbol {
+fn Main(): symbol {
 
     Console::Print("Hello, World!")
 

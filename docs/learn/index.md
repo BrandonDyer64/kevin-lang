@@ -6,7 +6,7 @@ next: 010_hello_world
 # Learn Kevin
 
 ```kev
-fn Main(args: string[]): symbol {
+fn Main(): symbol {
     // Hi there!
     Print("Welcome to Kevin!")
 
@@ -18,4 +18,4 @@ fn Main(args: string[]): symbol {
 }
 ```
 
-Get started with a <a href="/learn/hello_world.html">Hello World</a> program.
+Get started with a <a href="/learn/010_hello_world.html">Hello World</a> program.

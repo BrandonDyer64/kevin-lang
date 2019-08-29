@@ -1,49 +1,61 @@
 # Tic Tac Toe
 
 ```
-import Console from "console"
+import { AskInteger, Print } from "console"
 import { RandomInt } from "math"
 
-fn symbol Main([string] args) {
-    let mut board = [symbol; 3, 3] => :none;
-    [1...9] loop i => board->PlayRound(i);
-    board->Print();
-    Console::Print("Done.");
-    return :ok;
+fn Main(): symbol {
+    let mut board = [i32; 9] { :none }
+    Loop(9) {
+        board -> PlayRound(it)
+    }
+    Print(board -> Pretty)
+    Print("Done.")
+    return :ok
 }
 
-fn PlayRound(mut [symbol,] board, i32 round) =>
-    <- board->Move()
-    <- if round & 1
-        then => :ai
-        else => :player;
-
-fn Move(mut [symbol,] board, symbol who) {
-    let i8 [x, y] = switch who {
-        :ai => board->MoveAI();
-        default => board->MovePlayer();
-    };
-    if board[x, y] != :none return Move(board, who);
-    board[x, y] = who;
+fn PlayRound(mut board: symbol[,], round: i32) {
+    let who = if round & 1
+        then { :ai }
+        else { :player }
+    let [x, y] = board -> GetMove(who)
+    board[x, y] = who
 }
 
-fn [i8 2] MoveAI([symbol,] board) => [
-    , RandomInt(0, 3)
-    , RandomInt(0, 3)
-];
+fn GetMove(board: symbol[,], who: symbol): i8[2] {
+    eject GetMove(board, who)
+    
+    Print(board -> Pretty)
 
-fn [i8 2] MovePlayer([symbol,] board) {
-    board->Print();
-    return [
-        , Console::AskInteger("Move X")
-        , Console::AskInteger("Move Y");
-    ];
+    let [x, y]
+        = switch who {
+            :ai { GetMoveAI() }
+            else { GetMovePlayer() }
+        }
+
+    if !board[x, y]? {
+        return [x, y]
+    } else {
+        if who == :player {
+            Print("Invalid move.")
+        }
+        fail
+    }
 }
 
-fn Print([symbol,] board) =>
-    -> board
-    -> String::Join("\n", " ")
-    -> Console::Print();
+fn GetMoveAI(): i8[2] {
+    [RandomInt(0, 3), RandomInt(0, 3)]
+}
 
-export Main;
+fn GetMovePlayer(): i8[2] {
+    [AskInteger("Move X"), AskInteger("Move Y")]
+}
+
+fn Pretty(board: symbol[,]): string {
+    board
+        -> Map { it -> ToString }
+        -> String::Join("\n", " ")
+}
+
+export Main
 ```

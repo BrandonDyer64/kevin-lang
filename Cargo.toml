@@ -12,5 +12,4 @@ keywords = ["language", "compiler"]
 license = "MIT"
 
 [dependencies]
-llvm-sys = "80.1.1"
-regex = "1"
+spinners = "1.0.0"
