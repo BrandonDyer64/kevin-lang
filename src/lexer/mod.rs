@@ -190,6 +190,9 @@ fn do_op(op: char, pos: &mut usize, chars: &mut Peekable<Chars>) -> Option<Token
             '-' => Opr::AssignSub,
             _ => Opr::Assign
         },
+        '&' if op == '&' => Opr::And,
+        '>' if op == '-' => Opr::Arrow,
+        '|' if op == '|' => Opr::Or,
         _ => {
             do_next = false;
             match op {
@@ -204,6 +207,7 @@ fn do_op(op: char, pos: &mut usize, chars: &mut Peekable<Chars>) -> Option<Token
                 '-' => Opr::Sub,
                 '!' => Opr::Not,
                 '?' => Opr::Drf,
+                '|' => Opr::Pipe,
                 _ => {
                     return None
                 }

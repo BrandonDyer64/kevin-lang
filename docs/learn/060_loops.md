@@ -1,6 +1,7 @@
 ---
 sort_order: 60
 previous: 050_functions
+next: 070_nullables
 ---
 
 # Loops

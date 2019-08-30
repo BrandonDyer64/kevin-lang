@@ -23,4 +23,6 @@ pub enum Opr {
     Sub,
     Not,
     Drf,
+    Pipe,
+    Arrow,
 }

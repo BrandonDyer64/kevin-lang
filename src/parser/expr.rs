@@ -1,6 +1,5 @@
-#[path = "lexer/opr.rs"]
-mod opr;
-use opr::Opr;
+
+use super::super::lexer::Opr;
 
 #[derive(PartialEq, Debug)]
 pub enum Expr {
@@ -46,6 +45,11 @@ pub enum Expr {
     Switch {
         cond: Box<Expr>,
         paths: Vec<(Expr, Expr)>
+    },
+
+    Function {
+        name: Option<String>,
+        expr: Box<Expr>
     },
 
     Integer(u64),
